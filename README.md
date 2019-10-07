@@ -6,7 +6,7 @@
 - Install dependencies with `yarn`.
 - Start the server with `yarn run dev`.
 
-##How to
+##How to test
 
 ## How to Run (In Docker Container)
 
