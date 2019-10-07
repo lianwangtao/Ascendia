@@ -1,0 +1,18 @@
+{
+  "development": {
+    "dialect": "sqlite",
+    "storage": "./data/image-cat.db"
+  },
+  "test": {
+    "dialect": "sqlite",
+    "storage": "./data/image-cat.db"
+  },
+  "production": {
+    "dialect": "postgresql",
+    "username":"postgres",
+    "password":"9099135",
+    "database":"postgres",
+    "port": "5432",
+    "host":"108.59.85.71"
+  }
+}

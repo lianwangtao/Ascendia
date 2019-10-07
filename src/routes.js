@@ -1,0 +1,7 @@
+export const HOME = '/'
+export const JOURNAL = '/journal'
+export const SIGNUP = '/signup'
+export const LOGIN = '/login'
+export const ABOUT = '/about'
+export const CONTACT = '/contact'
+export const CREATE = '/create'
