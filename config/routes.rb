@@ -4,8 +4,9 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       get 'videos/index'
-      get 'videos/create'
-      get 'videos/show'
+      post 'vidoes/create'
+      get '/show/:id', to: 'videos#show'
+      delete '/destroy/:id', to: 'videos#destroy'
     end
   end
   namespace :api do

@@ -1,6 +1,6 @@
-import React from "react";
-import Button from '@material-ui/core/Button';
-import { Link } from "react-router-dom";
+import React from "react"
+import Button from '@material-ui/core/Button'
+import { Link } from "react-router-dom"
 
 export default () => (
   <div className="vw-100 vh-100 primary-color d-flex align-items-center justify-content-center">
@@ -22,4 +22,4 @@ export default () => (
       </div>
     </div>
   </div>
-);
+)
