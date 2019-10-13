@@ -12,9 +12,17 @@ video_urls = [
   'https://www.youtube.com/watch?v=6OceuTkSYNo'
 ]
 
+video_imgs = [
+  'http://i3.ytimg.com/vi/ylLTMYt24lA/maxresdefault.jpg',
+  'http://i3.ytimg.com/vi/5Wq0yv73NpY/maxresdefault.jpg',
+  'http://i3.ytimg.com/vi/JR4KHfqw-oE/maxresdefault.jpg',
+  'http://i3.ytimg.com/vi/6OceuTkSYNo/maxresdefault.jpg'
+]
+
 4.times do |i|
   Video.create(
     name: "Video #{i + 1}",
-    src: video_urls[i]
+    src: video_urls[i],
+    img: video_imgs[i]
   )
 end

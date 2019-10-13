@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 class Video extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { video: { src: "" } }
+    this.state = { video: { src: "" , img: "" } }
 
     this.addHtmlEntities = this.addHtmlEntities.bind(this)
     this.deleteVideo = this.deleteVideo.bind(this)
@@ -65,10 +65,16 @@ class Video extends React.Component {
   render() {
     const { video: video } = this.state
     let videoUrl = video.src
+    let videoImg = video.img
 
     return (
       <div className="">
         <div className="hero position-relative d-flex align-items-center justify-content-center">
+            <img
+                src={video.img}
+                alt={`${video.name} image`}
+                className="img-fluid position-absolute"
+            />
           <div className="overlay bg-dark position-absolute" />
           <h1 className="display-4 position-relative text-white">
             {video.name}
