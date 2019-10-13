@@ -1,37 +1,37 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from "react"
+import { Link } from "react-router-dom"
 
 class NewRecipe extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       name: "",
       ingredients: "",
       instruction: ""
-    };
+    }
 
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.stripHtmlEntities = this.stripHtmlEntities.bind(this);
+    this.onChange = this.onChange.bind(this)
+    this.onSubmit = this.onSubmit.bind(this)
+    this.stripHtmlEntities = this.stripHtmlEntities.bind(this)
   }
 
   stripHtmlEntities(str) {
     return String(str)
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;");
+      .replace(/</g, "&lt")
+      .replace(/>/g, "&gt")
   }
 
   onChange(event) {
-    this.setState({ [event.target.name]: event.target.value });
+    this.setState({ [event.target.name]: event.target.value })
   }
 
   onSubmit(event) {
-    event.preventDefault();
-    const url = "/api/v1/recipes/create";
-    const { name, ingredients, instruction } = this.state;
+    event.preventDefault()
+    const url = "/api/v1/recipes/create"
+    const { name, ingredients, instruction } = this.state
 
     if (name.length == 0 || ingredients.length == 0 || instruction.length == 0)
-      return;
+      return
 
     const body = {
       name,
@@ -39,8 +39,8 @@ class NewRecipe extends React.Component {
       instruction: this.stripHtmlEntities(
         instruction.replace(/\n/g, "<br> <br>")
       )
-    };
-    const token = document.querySelector('meta[name="csrf-token"]').content;
+    }
+    const token = document.querySelector('meta[name="csrf-token"]').content
 
     fetch(url, {
       method: "POST",
@@ -52,12 +52,12 @@ class NewRecipe extends React.Component {
     })
       .then(response => {
         if (response.ok) {
-          return response.json();
+          return response.json()
         }
-        throw new Error("Network response was not ok.");
+        throw new Error("Network response was not ok.")
       })
       .then(response => this.props.history.push(`/recipe/${response.id}`))
-      .catch(error => console.log(error.message));
+      .catch(error => console.log(error.message))
   }
 
   render() {
@@ -113,8 +113,8 @@ class NewRecipe extends React.Component {
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default NewRecipe;
+export default NewRecipe

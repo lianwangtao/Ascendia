@@ -2,12 +2,12 @@
 // like app/views/layouts/application.html.erb. All it does is render <div>Hello React</div> at the bottom
 // of the page.
 
-import React from "react";
-import { render } from "react-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min";
-import App from "../components/App";
+import React from "react"
+import { render } from "react-dom"
+import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap/dist/js/bootstrap.bundle.min"
+import App from "../components/App"
 
 document.addEventListener("DOMContentLoaded", () => {
-  render(<App />, document.body.appendChild(document.createElement("div")));
-});
+  render(<App />, document.body.appendChild(document.createElement("div")))
+})
