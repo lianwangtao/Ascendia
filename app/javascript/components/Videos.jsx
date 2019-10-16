@@ -65,11 +65,6 @@ class Videos extends React.Component {
         </section>
         <div className="py-5">
           <main className="container">
-            <div className="text-right mb-3">
-              <Link to="/video" className="btn custom-button">
-                Create New Video
-            </Link>
-            </div>
             <div className="row">
               {videos.length > 0 ? allvideos : noVideo}
             </div>
