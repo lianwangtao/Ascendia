@@ -4,10 +4,11 @@ import { Link } from "react-router-dom"
 class Video extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { video: { src: "" , img: "" } }
+    this.state = { video: { src: "" , img: "" }, subtitles: [] }
 
     this.addHtmlEntities = this.addHtmlEntities.bind(this)
-    this.deleteVideo = this.deleteVideo.bind(this)
+    this.fetchVideo = this.fetchVideo.bind(this)
+    this.fetchSubtitles = this.fetchSubtitles.bind(this)
   }
 
   addHtmlEntities(str) {
@@ -22,8 +23,12 @@ class Video extends React.Component {
         params: { id }
       }
     } = this.props
+    this.fetchVideo(id)
+    this.fetchSubtitles(id)
+  }
 
-    const url = `/api/v1/show/${id}`
+  fetchVideo(id) {
+    const url = `/api/v1/video/${id}`
     fetch(url)
       .then(response => {
         if (response.ok) {
@@ -35,44 +40,42 @@ class Video extends React.Component {
       .catch(() => this.props.history.push("/videos"))
   }
 
-  deleteVideo() {
-    const {
-      match: {
-        params: { id }
-      }
-    } = this.props
-
-    const url = `/api/v1/destroy/${id}`
-    const token = document.querySelector('meta[name="csrf-token"]').content
-
-    fetch(url, {
-      method: "DELETE",
-      headers: {
-        "X-CSRF-Token": token,
-        "Content-Type": "application/json"
-      }
-    })
+  fetchSubtitles(id) {
+    const url = `/api/v1/subtitles?video_id=${id}`
+    fetch(url)
       .then(response => {
         if (response.ok) {
           return response.json()
         }
         throw new Error("Network response was not ok.")
       })
-      .then(() => this.props.history.push("/videos"))
-      .catch(error => console.log(error.message))
+      .then(response => this.setState({ subtitles: response }))
+      .catch(() => this.props.history.push("/videos"))
   }
 
   render() {
     const { video: video } = this.state
     let videoUrl = video.src
     let videoImg = video.img
+    let subtitles = []
+    
+    this.state.subtitles.forEach((sentence) => {
+      console.log(sentence)
+      subtitles.push(
+        <div key={sentence.id}>
+          <p>Content: {sentence.content}</p>
+          <p>Start Time: {sentence.start_time}</p>
+          <p>End Time: {sentence.end_time}</p>
+        </div>
+      )
+    })
 
     return (
       <div className="">
         <div className="hero position-relative d-flex align-items-center justify-content-center">
             <img
-                src={video.img}
-                alt={`${video.name} image`}
+            src={videoImg}
+            alt={`${videoImg} image`}
                 className="img-fluid position-absolute"
             />
           <div className="overlay bg-dark position-absolute" />
@@ -82,20 +85,13 @@ class Video extends React.Component {
         </div>
         <div className="container py-5">
           <div className="row">
-            <div className="col-sm-12 col-lg-3">
-              <ul className="list-group">
-                <h5 className="mb-2">Video url</h5>
-                    {videoUrl}
-              </ul>
+            <div className="col-sm-3 col-lg-3">
+              <h5 className="mb-2">Video url</h5>
+                  {videoUrl}
             </div>
-            <div className="col-sm-12 col-lg-2">
-              <button
-                type="button"
-                className="btn btn-danger"
-                onClick={this.deleteVideo}
-              >
-                Delete Video
-              </button>
+            <div className="col-sm-3 col-lg-3">
+              <h5 className="mb-2">Subtitles from the DB</h5>
+              {subtitles}
             </div>
           </div>
           <Link to="/videos" className="btn btn-link">

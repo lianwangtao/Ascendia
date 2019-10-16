@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_13_203845) do
+ActiveRecord::Schema.define(version: 2019_10_13_212752) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,16 @@ ActiveRecord::Schema.define(version: 2019_10_13_203845) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "subtitles", force: :cascade do |t|
+    t.string "start_time"
+    t.string "end_time"
+    t.bigint "video_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "content"
+    t.index ["video_id"], name: "index_subtitles_on_video_id"
+  end
+
   create_table "videos", force: :cascade do |t|
     t.string "name"
     t.text "src"
@@ -32,4 +42,5 @@ ActiveRecord::Schema.define(version: 2019_10_13_203845) do
     t.string "img"
   end
 
+  add_foreign_key "subtitles", "videos"
 end

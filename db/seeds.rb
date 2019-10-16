@@ -5,6 +5,8 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+# Populate videos
+
 video_urls = [
   'https://www.youtube.com/watch?v=ylLTMYt24lA',
   'https://www.youtube.com/watch?v=5Wq0yv73NpY',
@@ -24,5 +26,18 @@ video_imgs = [
     name: "Video #{i + 1}",
     src: video_urls[i],
     img: video_imgs[i]
+  )
+end
+
+all_videos = Video.all
+
+# Populate subtitles
+
+5.times do |i|
+  Subtitle.create(
+    start_time: "0:0#{i}",
+    end_time: "0.0#{i+1}",
+    content: "This is the ##{i} subtitle",
+    video: all_videos[0]
   )
 end
