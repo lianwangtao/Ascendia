@@ -30,4 +30,5 @@ class Api::V1::VideosController < ApplicationController
   def video
     @video ||= Video.find(params[:id])
   end
+
 end

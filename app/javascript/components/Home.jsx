@@ -15,7 +15,7 @@ export default () => (
           variant="contained" 
           color="primary"
           component={Link}
-          to="/recipes"
+          to="/videos"
         >
           View Videos
         </Button> 
