@@ -62,10 +62,12 @@ class Video extends React.Component {
     this.state.subtitles.forEach((sentence) => {
       console.log(sentence)
       subtitles.push(
-        <div key={sentence.id}>
-          <p>Content: {sentence.content}</p>
-          <p>Start Time: {sentence.start_time}</p>
-          <p>End Time: {sentence.end_time}</p>
+        <div key={sentence.id} className="card mb-4">
+          <div className="card-body">
+            <p>Content: {sentence.content}</p>
+            <p>Start Time: {sentence.start_time}</p>
+            <p>End Time: {sentence.end_time}</p>
+          </div>
         </div>
       )
     })
