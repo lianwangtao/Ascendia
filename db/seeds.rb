@@ -41,3 +41,15 @@ all_videos = Video.all
     video: all_videos[0]
   )
 end
+
+# Populate defintions
+
+all_subtitles = Subtitle.all
+
+5.times do |i|
+  Definition.create(
+    content: "This is the ##{i} defintion",
+    link: "https://www.wikipedia.com",
+    subtitle: all_subtitles[0]
+  )
+end

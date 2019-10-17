@@ -4,11 +4,17 @@ import { Link } from "react-router-dom"
 class Video extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { video: { src: "" , img: "" }, subtitles: [] }
+    this.state = { 
+      video: { src: "" , img: "" }, 
+      subtitles: [],
+      defintions: [] 
+    }
 
     this.addHtmlEntities = this.addHtmlEntities.bind(this)
     this.fetchVideo = this.fetchVideo.bind(this)
     this.fetchSubtitles = this.fetchSubtitles.bind(this)
+    this.fetchDefinitions = this.fetchDefinitions.bind(this)
+    this.fetchDefinitionsForSentence = this.fetchDefinitionsForSentence.bind(this)
   }
 
   addHtmlEntities(str) {
@@ -53,6 +59,29 @@ class Video extends React.Component {
       .catch(() => this.props.history.push("/videos"))
   }
 
+  fetchDefinitionsForSentence() {
+    if (this.state.subtitles.length == 0) {
+      console.log("Empty")
+    }
+    this.state.subtitles.forEach((sentence) => {
+      console.log(`Fetching defintion for id ${sentence.id}`)
+      this.fetchDefinitions(sentence.id)
+    })
+  }
+
+  fetchDefinitions(subtitle_id) {
+    const url = `/api/v1/definitions?subtitle_id=${subtitle_id}`
+    fetch(url)
+      .then(response => {
+        if (response.ok) {
+          return response.json()
+        }
+        throw new Error("Network response was not ok.")
+      })
+      .then(response => console.log(response.json()) )
+      .catch(() => this.props.history.push("/videos"))
+  }
+
   render() {
     const { video: video } = this.state
     let videoUrl = video.src
@@ -60,13 +89,14 @@ class Video extends React.Component {
     let subtitles = []
     
     this.state.subtitles.forEach((sentence) => {
-      console.log(sentence)
       subtitles.push(
         <div key={sentence.id} className="card mb-4">
           <div className="card-body">
             <p>Content: {sentence.content}</p>
             <p>Start Time: {sentence.start_time}</p>
             <p>End Time: {sentence.end_time}</p>
+            <h5>Definitions</h5>
+            {/* <p>{this.state.defintions[sentence.id]}</p> */}
           </div>
         </div>
       )
@@ -88,11 +118,11 @@ class Video extends React.Component {
         <div className="container py-5">
           <div className="row">
             <div className="col-sm-3 col-lg-3">
-              <h5 className="mb-2">Video url</h5>
+              <h4 className="mb-2">Video url</h4>
                   {videoUrl}
             </div>
             <div className="col-sm-3 col-lg-3">
-              <h5 className="mb-2">Subtitles from the DB</h5>
+              <h4 className="mb-2">Subtitles from the DB</h4>
               {subtitles}
             </div>
           </div>
