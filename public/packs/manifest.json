@@ -1,26 +1,80 @@
 {
-  "Index.js": "/packs/js/Index-90a2bb9f76f8f183de43.js",
-  "Index.js.map": "/packs/js/Index-90a2bb9f76f8f183de43.js.map",
-  "application.js": "/packs/js/application-c02d1a07bc8c31a546f8.js",
-  "application.js.map": "/packs/js/application-c02d1a07bc8c31a546f8.js.map",
+  "Index.js": "/packs/js/Index-c79b889efeda6fa3cd2f.js",
+  "Index.js.map": "/packs/js/Index-c79b889efeda6fa3cd2f.js.map",
+  "actionTypes.js": "/packs/js/actionTypes-945b358a5b4800c821f5.js",
+  "actionTypes.js.map": "/packs/js/actionTypes-945b358a5b4800c821f5.js.map",
+  "actions.js": "/packs/js/actions-b70bb76c944641c88427.js",
+  "actions.js.map": "/packs/js/actions-b70bb76c944641c88427.js.map",
+  "application.js": "/packs/js/application-a2522eb30d094df91ef5.js",
+  "application.js.map": "/packs/js/application-a2522eb30d094df91ef5.js.map",
   "entrypoints": {
-    "application": {
+    "actions": {
       "js": [
-        "/packs/js/application-c02d1a07bc8c31a546f8.js"
+        "/packs/js/actions-b70bb76c944641c88427.js"
       ],
       "js.map": [
-        "/packs/js/application-c02d1a07bc8c31a546f8.js.map"
+        "/packs/js/actions-b70bb76c944641c88427.js.map"
+      ]
+    },
+    "actionTypes": {
+      "js": [
+        "/packs/js/actionTypes-945b358a5b4800c821f5.js"
+      ],
+      "js.map": [
+        "/packs/js/actionTypes-945b358a5b4800c821f5.js.map"
+      ]
+    },
+    "application": {
+      "js": [
+        "/packs/js/application-a2522eb30d094df91ef5.js"
+      ],
+      "js.map": [
+        "/packs/js/application-a2522eb30d094df91ef5.js.map"
       ]
     },
     "Index": {
       "js": [
-        "/packs/js/Index-90a2bb9f76f8f183de43.js"
+        "/packs/js/Index-c79b889efeda6fa3cd2f.js"
       ],
       "js.map": [
-        "/packs/js/Index-90a2bb9f76f8f183de43.js.map"
+        "/packs/js/Index-c79b889efeda6fa3cd2f.js.map"
+      ]
+    },
+    "initialState": {
+      "js": [
+        "/packs/js/initialState-ec64484d3b1d8cc95aaa.js"
+      ],
+      "js.map": [
+        "/packs/js/initialState-ec64484d3b1d8cc95aaa.js.map"
+      ]
+    },
+    "reducers/index": {
+      "js": [
+        "/packs/js/reducers/index-28bb713a04a1fb8c9703.js"
+      ],
+      "js.map": [
+        "/packs/js/reducers/index-28bb713a04a1fb8c9703.js.map"
+      ]
+    },
+    "reducers/video_reducer": {
+      "js": [
+        "/packs/js/reducers/video_reducer-a5b6a989b85c327ce593.js"
+      ],
+      "js.map": [
+        "/packs/js/reducers/video_reducer-a5b6a989b85c327ce593.js.map"
+      ]
+    },
+    "store": {
+      "js": [
+        "/packs/js/store-fc8c7c6f0a9037c46ad7.js"
+      ],
+      "js.map": [
+        "/packs/js/store-fc8c7c6f0a9037c46ad7.js.map"
       ]
     }
   },
+  "initialState.js": "/packs/js/initialState-ec64484d3b1d8cc95aaa.js",
+  "initialState.js.map": "/packs/js/initialState-ec64484d3b1d8cc95aaa.js.map",
   "media/files/roboto-latin-100.woff": "/packs/media/files/roboto-latin-100-5cb7edfc.woff",
   "media/files/roboto-latin-100.woff2": "/packs/media/files/roboto-latin-100-7370c367.woff2",
   "media/files/roboto-latin-100italic.woff": "/packs/media/files/roboto-latin-100italic-f9e8e590.woff",
@@ -44,5 +98,11 @@
   "media/files/roboto-latin-900.woff": "/packs/media/files/roboto-latin-900-bb1e4dc6.woff",
   "media/files/roboto-latin-900.woff2": "/packs/media/files/roboto-latin-900-9b3766ef.woff2",
   "media/files/roboto-latin-900italic.woff": "/packs/media/files/roboto-latin-900italic-28f91510.woff",
-  "media/files/roboto-latin-900italic.woff2": "/packs/media/files/roboto-latin-900italic-ebf6d164.woff2"
+  "media/files/roboto-latin-900italic.woff2": "/packs/media/files/roboto-latin-900italic-ebf6d164.woff2",
+  "reducers/index.js": "/packs/js/reducers/index-28bb713a04a1fb8c9703.js",
+  "reducers/index.js.map": "/packs/js/reducers/index-28bb713a04a1fb8c9703.js.map",
+  "reducers/video_reducer.js": "/packs/js/reducers/video_reducer-a5b6a989b85c327ce593.js",
+  "reducers/video_reducer.js.map": "/packs/js/reducers/video_reducer-a5b6a989b85c327ce593.js.map",
+  "store.js": "/packs/js/store-fc8c7c6f0a9037c46ad7.js",
+  "store.js.map": "/packs/js/store-fc8c7c6f0a9037c46ad7.js.map"
 }
