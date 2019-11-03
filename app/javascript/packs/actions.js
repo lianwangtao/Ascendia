@@ -25,7 +25,10 @@ export function fetchSubtitles(id) {
   return (dispatch, _) => {
     axios.get(url, {})
       .then(response => {
+<<<<<<< HEAD
         console.log("subtitles data: ", response.data)
+=======
+>>>>>>> Add redux support for subtitles
         dispatch({
           type: ADD_SUBTITLE,
           data: response.data,
