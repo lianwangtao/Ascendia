@@ -25,6 +25,7 @@ export function fetchSubtitles(id) {
   return (dispatch, _) => {
     axios.get(url, {})
       .then(response => {
+        console.log("subtitles data: ", response.data)
         dispatch({
           type: ADD_SUBTITLE,
           data: response.data,

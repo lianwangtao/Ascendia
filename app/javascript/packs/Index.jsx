@@ -4,10 +4,26 @@
 
 import React from "react"
 import { render } from "react-dom"
+import { Provider } from 'react-redux'
+import { createStore, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap/dist/js/bootstrap.bundle.min"
 import App from "../components/App"
+import initialState from '../packs/reducers/initial_state'
+import video_reducer from "./reducers/video_reducer"
+
+let store = createStore(
+  video_reducer,
+  initialState(),
+  applyMiddleware(thunk)
+)
 
 document.addEventListener("DOMContentLoaded", () => {
-  render(<App />, document.body.appendChild(document.createElement("div")))
+  render(
+    <Provider store={store}>
+      <App />
+    </Provider>,
+    document.body.appendChild(document.createElement("div"))
+    )
 })

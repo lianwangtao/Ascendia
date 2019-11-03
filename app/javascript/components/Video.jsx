@@ -8,8 +8,6 @@ class Video extends React.Component {
     super(props)
     this.state = { 
       video: { src: "" , img: "" }, 
-      subtitles: [],
-      defintions: [] 
     }
 
     this.addHtmlEntities = this.addHtmlEntities.bind(this)
@@ -89,7 +87,7 @@ class Video extends React.Component {
     let videoImg = video.img
     let subtitles = []
     //let definitions = this.props.definitions
-    console.log(subtitles)
+    console.log(this.props.subtitles)
     
     if (this.props.subtitles) {
       this.props.subtitles.forEach((sentence) => {
@@ -142,8 +140,8 @@ class Video extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    definitions: state.video.definitions,
-    subtitles: state.video.subtitles
+    definitions: state.definitions,
+    subtitles: state.subtitles
   }
 }
 
