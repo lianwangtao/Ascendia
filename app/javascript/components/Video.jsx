@@ -1,5 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom"
+import { connect } from "react-redux"
+import * as videoActions from "../packs/actions"
 
 class Video extends React.Component {
   constructor(props) {
@@ -12,9 +14,7 @@ class Video extends React.Component {
 
     this.addHtmlEntities = this.addHtmlEntities.bind(this)
     this.fetchVideo = this.fetchVideo.bind(this)
-    this.fetchSubtitles = this.fetchSubtitles.bind(this)
-    this.fetchDefinitions = this.fetchDefinitions.bind(this)
-    this.fetchDefinitionsForSentence = this.fetchDefinitionsForSentence.bind(this)
+    //this.fetchSubtitles = this.fetchSubtitles.bind(this)
   }
 
   addHtmlEntities(str) {
@@ -30,7 +30,8 @@ class Video extends React.Component {
       }
     } = this.props
     this.fetchVideo(id)
-    this.fetchSubtitles(id)
+    this.props.fetchSubtitles(id)
+    this.props.fetchDefinitions(id)
   }
 
   fetchVideo(id) {
@@ -87,20 +88,24 @@ class Video extends React.Component {
     let videoUrl = video.src
     let videoImg = video.img
     let subtitles = []
+    //let definitions = this.props.definitions
+    console.log(subtitles)
     
-    this.state.subtitles.forEach((sentence) => {
-      subtitles.push(
-        <div key={sentence.id} className="card mb-4">
-          <div className="card-body">
-            <p>Content: {sentence.content}</p>
-            <p>Start Time: {sentence.start_time}</p>
-            <p>End Time: {sentence.end_time}</p>
-            <h5>Definitions</h5>
-            {/* <p>{this.state.defintions[sentence.id]}</p> */}
+    if (this.props.subtitles) {
+      this.props.subtitles.forEach((sentence) => {
+        subtitles.push(
+          <div key={sentence.id} className="card mb-4">
+            <div className="card-body">
+              <p>Content: {sentence.content}</p>
+              <p>Start Time: {sentence.start_time}</p>
+              <p>End Time: {sentence.end_time}</p>
+              <h5>Definitions</h5>
+              {/* <p key={definitions[sentence.id].content}>{definitions[sentence.id].content}</p> */}
+            </div>
           </div>
-        </div>
-      )
-    })
+        )
+      })
+    }
 
     return (
       <div className="">
@@ -135,4 +140,14 @@ class Video extends React.Component {
   }
 }
 
-export default Video
+const mapStateToProps = state => {
+  return {
+    definitions: state.video.definitions,
+    subtitles: state.video.subtitles
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  videoActions
+)(Video)

@@ -1,0 +1,2 @@
+export const ADD_DEFINITION = "ADD_DEFINITION"
+export const ADD_SUBTITLE = "Add_SUBTITLE"
