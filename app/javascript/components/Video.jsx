@@ -12,7 +12,6 @@ class Video extends React.Component {
 
     this.addHtmlEntities = this.addHtmlEntities.bind(this)
     this.fetchVideo = this.fetchVideo.bind(this)
-    //this.fetchSubtitles = this.fetchSubtitles.bind(this)
   }
 
   addHtmlEntities(str) {
@@ -45,48 +44,12 @@ class Video extends React.Component {
       .catch(() => this.props.history.push("/videos"))
   }
 
-  fetchSubtitles(id) {
-    const url = `/api/v1/subtitles?video_id=${id}`
-    fetch(url)
-      .then(response => {
-        if (response.ok) {
-          return response.json()
-        }
-        throw new Error("Network response was not ok.")
-      })
-      .then(response => this.setState({ subtitles: response }))
-      .catch(() => this.props.history.push("/videos"))
-  }
-
-  fetchDefinitionsForSentence() {
-    if (this.state.subtitles.length == 0) {
-      console.log("Empty")
-    }
-    this.state.subtitles.forEach((sentence) => {
-      console.log(`Fetching defintion for id ${sentence.id}`)
-      this.fetchDefinitions(sentence.id)
-    })
-  }
-
-  fetchDefinitions(subtitle_id) {
-    const url = `/api/v1/definitions?subtitle_id=${subtitle_id}`
-    fetch(url)
-      .then(response => {
-        if (response.ok) {
-          return response.json()
-        }
-        throw new Error("Network response was not ok.")
-      })
-      .then(response => console.log(response.json()) )
-      .catch(() => this.props.history.push("/videos"))
-  }
-
   render() {
     const { video: video } = this.state
     let videoUrl = video.src
     let videoImg = video.img
     let subtitles = []
-    //let definitions = this.props.definitions
+    let definitions = this.props.definitions
     console.log(this.props.subtitles)
     
     if (this.props.subtitles) {
