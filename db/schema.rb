@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_13_212752) do
+ActiveRecord::Schema.define(version: 2019_10_17_023648) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "definitions", force: :cascade do |t|
+    t.string "content"
+    t.string "link"
+    t.bigint "subtitle_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["subtitle_id"], name: "index_definitions_on_subtitle_id"
+  end
 
   create_table "recipes", force: :cascade do |t|
     t.string "name", null: false
@@ -42,5 +51,6 @@ ActiveRecord::Schema.define(version: 2019_10_13_212752) do
     t.string "img"
   end
 
+  add_foreign_key "definitions", "subtitles"
   add_foreign_key "subtitles", "videos"
 end

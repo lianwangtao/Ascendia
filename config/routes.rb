@@ -3,6 +3,11 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
+      get 'definitions', to: 'definitions#show'
+    end
+  end
+  namespace :api do
+    namespace :v1 do
       get 'subtitles', to: 'subtitles#show'
     end
   end
