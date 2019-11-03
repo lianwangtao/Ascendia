@@ -3,3 +3,6 @@ tmp/
 log/
 */.DS_Store
 */*.lock
+.DS_Store
+yarn.lock
+public/packs/manifest.json

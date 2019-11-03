@@ -1,20 +1,17 @@
 import React from "react"
 import { Link } from "react-router-dom"
+import { connect } from "react-redux"
+import * as videoActions from "../packs/actions"
 
 class Video extends React.Component {
   constructor(props) {
     super(props)
     this.state = { 
       video: { src: "" , img: "" }, 
-      subtitles: [],
-      defintions: [] 
     }
 
     this.addHtmlEntities = this.addHtmlEntities.bind(this)
     this.fetchVideo = this.fetchVideo.bind(this)
-    this.fetchSubtitles = this.fetchSubtitles.bind(this)
-    this.fetchDefinitions = this.fetchDefinitions.bind(this)
-    this.fetchDefinitionsForSentence = this.fetchDefinitionsForSentence.bind(this)
   }
 
   addHtmlEntities(str) {
@@ -30,7 +27,8 @@ class Video extends React.Component {
       }
     } = this.props
     this.fetchVideo(id)
-    this.fetchSubtitles(id)
+    this.props.fetchSubtitles(id)
+    this.props.fetchDefinitions(id)
   }
 
   fetchVideo(id) {
@@ -46,61 +44,29 @@ class Video extends React.Component {
       .catch(() => this.props.history.push("/videos"))
   }
 
-  fetchSubtitles(id) {
-    const url = `/api/v1/subtitles?video_id=${id}`
-    fetch(url)
-      .then(response => {
-        if (response.ok) {
-          return response.json()
-        }
-        throw new Error("Network response was not ok.")
-      })
-      .then(response => this.setState({ subtitles: response }))
-      .catch(() => this.props.history.push("/videos"))
-  }
-
-  fetchDefinitionsForSentence() {
-    if (this.state.subtitles.length == 0) {
-      console.log("Empty")
-    }
-    this.state.subtitles.forEach((sentence) => {
-      console.log(`Fetching defintion for id ${sentence.id}`)
-      this.fetchDefinitions(sentence.id)
-    })
-  }
-
-  fetchDefinitions(subtitle_id) {
-    const url = `/api/v1/definitions?subtitle_id=${subtitle_id}`
-    fetch(url)
-      .then(response => {
-        if (response.ok) {
-          return response.json()
-        }
-        throw new Error("Network response was not ok.")
-      })
-      .then(response => console.log(response.json()) )
-      .catch(() => this.props.history.push("/videos"))
-  }
-
   render() {
     const { video: video } = this.state
     let videoUrl = video.src
     let videoImg = video.img
     let subtitles = []
+    let definitions = this.props.definitions
+    console.log(this.props.subtitles)
     
-    this.state.subtitles.forEach((sentence) => {
-      subtitles.push(
-        <div key={sentence.id} className="card mb-4">
-          <div className="card-body">
-            <p>Content: {sentence.content}</p>
-            <p>Start Time: {sentence.start_time}</p>
-            <p>End Time: {sentence.end_time}</p>
-            <h5>Definitions</h5>
-            {/* <p>{this.state.defintions[sentence.id]}</p> */}
+    if (this.props.subtitles) {
+      this.props.subtitles.forEach((sentence) => {
+        subtitles.push(
+          <div key={sentence.id} className="card mb-4">
+            <div className="card-body">
+              <p>Content: {sentence.content}</p>
+              <p>Start Time: {sentence.start_time}</p>
+              <p>End Time: {sentence.end_time}</p>
+              <h5>Definitions</h5>
+              {/* <p key={definitions[sentence.id].content}>{definitions[sentence.id].content}</p> */}
+            </div>
           </div>
-        </div>
-      )
-    })
+        )
+      })
+    }
 
     return (
       <div className="">
@@ -135,4 +101,14 @@ class Video extends React.Component {
   }
 }
 
-export default Video
+const mapStateToProps = state => {
+  return {
+    definitions: state.definitions,
+    subtitles: state.subtitles
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  videoActions
+)(Video)
