@@ -6,10 +6,6 @@ export default class VideoPlayer extends React.Component {
     super(props, context)
   }
 
-  componentDidMount() {
-    console.log("URL: ", this.props.video_source)
-  }
-
   render() {
     return (
       <Player
@@ -17,7 +13,7 @@ export default class VideoPlayer extends React.Component {
         src={this.props.video_source}
       >
         <BigPlayButton position="center" />
-        <ControlBar autoHide={true} />
+        <ControlBar autoHide={true} className="player-control-bar" />
       </Player>
     )
   }

@@ -62,3 +62,7 @@
 .video-player-wrapper {
   padding: 50px;
 }
+
+.player-control-bar {
+  font-family: 'Roboto';
+}
