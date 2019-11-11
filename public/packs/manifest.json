@@ -1,6 +1,6 @@
 {
-  "Index.js": "/packs/js/Index-2d894ad423cf984312a5.js",
-  "Index.js.map": "/packs/js/Index-2d894ad423cf984312a5.js.map",
+  "Index.js": "/packs/js/Index-8fd73e686196e1694d60.js",
+  "Index.js.map": "/packs/js/Index-8fd73e686196e1694d60.js.map",
   "actionTypes.js": "/packs/js/actionTypes-cda810ca0a59066187b1.js",
   "actionTypes.js.map": "/packs/js/actionTypes-cda810ca0a59066187b1.js.map",
   "actions.js": "/packs/js/actions-741929b27ac6e6b6c169.js",
@@ -34,26 +34,26 @@
     },
     "Index": {
       "js": [
-        "/packs/js/Index-2d894ad423cf984312a5.js"
+        "/packs/js/Index-8fd73e686196e1694d60.js"
       ],
       "js.map": [
-        "/packs/js/Index-2d894ad423cf984312a5.js.map"
+        "/packs/js/Index-8fd73e686196e1694d60.js.map"
       ]
     },
     "reducers/InitialState": {
       "js": [
-        "/packs/js/reducers/InitialState-7cd3d5f8f6a860b010f6.js"
+        "/packs/js/reducers/InitialState-1f86758b7c6e343922d0.js"
       ],
       "js.map": [
-        "/packs/js/reducers/InitialState-7cd3d5f8f6a860b010f6.js.map"
+        "/packs/js/reducers/InitialState-1f86758b7c6e343922d0.js.map"
       ]
     },
     "reducers/VideoReducer": {
       "js": [
-        "/packs/js/reducers/VideoReducer-4a9a44d03d8da17744c3.js"
+        "/packs/js/reducers/VideoReducer-b6233698c9579ee33165.js"
       ],
       "js.map": [
-        "/packs/js/reducers/VideoReducer-4a9a44d03d8da17744c3.js.map"
+        "/packs/js/reducers/VideoReducer-b6233698c9579ee33165.js.map"
       ]
     }
   },
@@ -81,8 +81,8 @@
   "media/files/roboto-latin-900.woff2": "/packs/media/files/roboto-latin-900-9b3766ef.woff2",
   "media/files/roboto-latin-900italic.woff": "/packs/media/files/roboto-latin-900italic-28f91510.woff",
   "media/files/roboto-latin-900italic.woff2": "/packs/media/files/roboto-latin-900italic-ebf6d164.woff2",
-  "reducers/InitialState.js": "/packs/js/reducers/InitialState-7cd3d5f8f6a860b010f6.js",
-  "reducers/InitialState.js.map": "/packs/js/reducers/InitialState-7cd3d5f8f6a860b010f6.js.map",
-  "reducers/VideoReducer.js": "/packs/js/reducers/VideoReducer-4a9a44d03d8da17744c3.js",
-  "reducers/VideoReducer.js.map": "/packs/js/reducers/VideoReducer-4a9a44d03d8da17744c3.js.map"
+  "reducers/InitialState.js": "/packs/js/reducers/InitialState-1f86758b7c6e343922d0.js",
+  "reducers/InitialState.js.map": "/packs/js/reducers/InitialState-1f86758b7c6e343922d0.js.map",
+  "reducers/VideoReducer.js": "/packs/js/reducers/VideoReducer-b6233698c9579ee33165.js",
+  "reducers/VideoReducer.js.map": "/packs/js/reducers/VideoReducer-b6233698c9579ee33165.js.map"
 }

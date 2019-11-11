@@ -8,10 +8,10 @@
 # Populate videos
 
 video_urls = [
-  'https://www.youtube.com/watch?v=ylLTMYt24lA',
-  'https://www.youtube.com/watch?v=5Wq0yv73NpY',
-  'https://www.youtube.com/watch?v=JR4KHfqw-oE',
-  'https://www.youtube.com/watch?v=6OceuTkSYNo'
+  'https://res.cloudinary.com/dswnxi1zx/video/upload/v1573438264/A_bit_of_China_-_Trailer_y4fk4n.mp4',
+  'https://res.cloudinary.com/dswnxi1zx/video/upload/v1573438264/A_bit_of_China_-_Trailer_y4fk4n.mp4',
+  'https://res.cloudinary.com/dswnxi1zx/video/upload/v1573438264/A_bit_of_China_-_Trailer_y4fk4n.mp4',
+  'https://res.cloudinary.com/dswnxi1zx/video/upload/v1573438264/A_bit_of_China_-_Trailer_y4fk4n.mp4'
 ]
 
 video_imgs = [

@@ -1,6 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import { connect } from "react-redux"
+import VideoPlayer from "./Player"
 import * as videoActions from "../packs/actions"
 
 class Video extends React.Component {
@@ -70,23 +71,11 @@ class Video extends React.Component {
 
     return (
       <div className="">
-        <div className="hero position-relative d-flex align-items-center justify-content-center">
-            <img
-            src={videoImg}
-            alt={`${videoImg} image`}
-                className="img-fluid position-absolute"
-            />
-          <div className="overlay bg-dark position-absolute" />
-          <h1 className="display-4 position-relative text-white">
-            {video.name}
-          </h1>
+        <div className="row d-flex align-items-center justify-content-center video-player-wrapper">
+          <VideoPlayer video_source={videoUrl} />
         </div>
         <div className="container py-5">
           <div className="row">
-            <div className="col-sm-3 col-lg-3">
-              <h4 className="mb-2">Video url</h4>
-                  {videoUrl}
-            </div>
             <div className="col-sm-3 col-lg-3">
               <h4 className="mb-2">Subtitles from the DB</h4>
               {subtitles}

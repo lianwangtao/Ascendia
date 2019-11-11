@@ -1,5 +1,9 @@
 import { ADD_DEFINITION, ADD_SUBTITLE } from "../actionTypes"
+<<<<<<< HEAD:app/javascript/packs/reducers/video_reducer.js
 import initialState from "../initialState"
+=======
+import initialState from "./InitialState"
+>>>>>>> Add react video player:app/javascript/packs/reducers/VideoReducer.js
 
 export default function(state = initialState(), action) {
   switch (action.type) {
