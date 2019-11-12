@@ -10,8 +10,9 @@ import thunk from 'redux-thunk'
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap/dist/js/bootstrap.bundle.min"
 import App from "../components/App"
-import initialState from '../packs/reducers/initial_state'
-import video_reducer from "./reducers/video_reducer"
+import initialState from './reducers/InitialState'
+import video_reducer from "./reducers/VideoReducer"
+import CloudinaryConfig from '../config/CloudinaryConfig'
 
 let store = createStore(
   video_reducer,
@@ -22,7 +23,7 @@ let store = createStore(
 document.addEventListener("DOMContentLoaded", () => {
   render(
     <Provider store={store}>
-      <App />
+      <App cloudName={CloudinaryConfig.cloud_name} />
     </Provider>,
     document.body.appendChild(document.createElement("div"))
     )

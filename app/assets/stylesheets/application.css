@@ -58,3 +58,11 @@
   width: 100%;
   opacity: 0.4;
 }
+
+.video-player-wrapper {
+  padding: 50px;
+}
+
+.player-control-bar {
+  font-family: 'Roboto';
+}
