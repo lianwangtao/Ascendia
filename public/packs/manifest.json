@@ -1,6 +1,6 @@
 {
-  "Index.js": "/packs/js/Index-79de2e558a7e49034359.js",
-  "Index.js.map": "/packs/js/Index-79de2e558a7e49034359.js.map",
+  "Index.js": "/packs/js/Index-2665c6cdd6844ec1a587.js",
+  "Index.js.map": "/packs/js/Index-2665c6cdd6844ec1a587.js.map",
   "actionTypes.js": "/packs/js/actionTypes-cda810ca0a59066187b1.js",
   "actionTypes.js.map": "/packs/js/actionTypes-cda810ca0a59066187b1.js.map",
   "actions.js": "/packs/js/actions-741929b27ac6e6b6c169.js",
@@ -34,10 +34,10 @@
     },
     "Index": {
       "js": [
-        "/packs/js/Index-79de2e558a7e49034359.js"
+        "/packs/js/Index-2665c6cdd6844ec1a587.js"
       ],
       "js.map": [
-        "/packs/js/Index-79de2e558a7e49034359.js.map"
+        "/packs/js/Index-2665c6cdd6844ec1a587.js.map"
       ]
     },
     "reducers/InitialState": {

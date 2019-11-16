@@ -75,11 +75,9 @@ class Video extends React.Component {
           <VideoPlayer video_source={videoUrl} />
         </div>
         <div className="container py-5">
-          <div className="row">
-            <div className="col-sm-3 col-lg-3">
-              <h4 className="mb-2">Subtitles from the DB</h4>
-              {subtitles}
-            </div>
+          <div className="row">           
+            <h4 className="mb-2">Subtitles from the DB</h4>
+            {subtitles}
           </div>
           <Link to="/videos" className="btn btn-link">
             Back to videos
