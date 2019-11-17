@@ -8,7 +8,7 @@
 # Populate videos
 
 video_urls = [
-  'https://res.cloudinary.com/dswnxi1zx/video/upload/v1573438264/A_bit_of_China_-_Trailer_y4fk4n.mp4'
+  'https://res.cloudinary.com/dswnxi1zx/video/upload/v1573966427/%E6%B5%81%E6%B5%AA%E5%9C%B0%E7%90%83_%E7%89%87%E6%AE%B5_efi8h9.mp4'
 ]
 
 video_imgs = [
@@ -26,6 +26,7 @@ all_videos = Video.all
 # Populate subtitles
 
 file = SRT::File.parse(File.new('./storage/The.Wandering.Earth.srt'))
+file.timeshift( :all => "-16.2m" )
 file.lines.each do |line|
   line.text.each do |sentence|
     Subtitle.create(

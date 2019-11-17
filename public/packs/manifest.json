@@ -1,27 +1,27 @@
 {
-  "Index.js": "/packs/js/Index-2665c6cdd6844ec1a587.js",
-  "Index.js.map": "/packs/js/Index-2665c6cdd6844ec1a587.js.map",
-  "actionTypes.js": "/packs/js/actionTypes-cda810ca0a59066187b1.js",
-  "actionTypes.js.map": "/packs/js/actionTypes-cda810ca0a59066187b1.js.map",
-  "actions.js": "/packs/js/actions-741929b27ac6e6b6c169.js",
-  "actions.js.map": "/packs/js/actions-741929b27ac6e6b6c169.js.map",
+  "Index.js": "/packs/js/Index-4418bfa4792996185921.js",
+  "Index.js.map": "/packs/js/Index-4418bfa4792996185921.js.map",
+  "actionTypes.js": "/packs/js/actionTypes-87cb08227c3ce876aba9.js",
+  "actionTypes.js.map": "/packs/js/actionTypes-87cb08227c3ce876aba9.js.map",
+  "actions.js": "/packs/js/actions-589d95b0e5eb4838f329.js",
+  "actions.js.map": "/packs/js/actions-589d95b0e5eb4838f329.js.map",
   "application.js": "/packs/js/application-c1b4a76e67304163c16d.js",
   "application.js.map": "/packs/js/application-c1b4a76e67304163c16d.js.map",
   "entrypoints": {
     "actions": {
       "js": [
-        "/packs/js/actions-741929b27ac6e6b6c169.js"
+        "/packs/js/actions-589d95b0e5eb4838f329.js"
       ],
       "js.map": [
-        "/packs/js/actions-741929b27ac6e6b6c169.js.map"
+        "/packs/js/actions-589d95b0e5eb4838f329.js.map"
       ]
     },
     "actionTypes": {
       "js": [
-        "/packs/js/actionTypes-cda810ca0a59066187b1.js"
+        "/packs/js/actionTypes-87cb08227c3ce876aba9.js"
       ],
       "js.map": [
-        "/packs/js/actionTypes-cda810ca0a59066187b1.js.map"
+        "/packs/js/actionTypes-87cb08227c3ce876aba9.js.map"
       ]
     },
     "application": {
@@ -34,10 +34,10 @@
     },
     "Index": {
       "js": [
-        "/packs/js/Index-2665c6cdd6844ec1a587.js"
+        "/packs/js/Index-4418bfa4792996185921.js"
       ],
       "js.map": [
-        "/packs/js/Index-2665c6cdd6844ec1a587.js.map"
+        "/packs/js/Index-4418bfa4792996185921.js.map"
       ]
     },
     "reducers/InitialState": {
@@ -50,10 +50,10 @@
     },
     "reducers/VideoReducer": {
       "js": [
-        "/packs/js/reducers/VideoReducer-04799573676f53e522f3.js"
+        "/packs/js/reducers/VideoReducer-a911a589f60f3bb04ab1.js"
       ],
       "js.map": [
-        "/packs/js/reducers/VideoReducer-04799573676f53e522f3.js.map"
+        "/packs/js/reducers/VideoReducer-a911a589f60f3bb04ab1.js.map"
       ]
     }
   },
@@ -83,6 +83,6 @@
   "media/files/roboto-latin-900italic.woff2": "/packs/media/files/roboto-latin-900italic-ebf6d164.woff2",
   "reducers/InitialState.js": "/packs/js/reducers/InitialState-1f86758b7c6e343922d0.js",
   "reducers/InitialState.js.map": "/packs/js/reducers/InitialState-1f86758b7c6e343922d0.js.map",
-  "reducers/VideoReducer.js": "/packs/js/reducers/VideoReducer-04799573676f53e522f3.js",
-  "reducers/VideoReducer.js.map": "/packs/js/reducers/VideoReducer-04799573676f53e522f3.js.map"
+  "reducers/VideoReducer.js": "/packs/js/reducers/VideoReducer-a911a589f60f3bb04ab1.js",
+  "reducers/VideoReducer.js.map": "/packs/js/reducers/VideoReducer-a911a589f60f3bb04ab1.js.map"
 }
