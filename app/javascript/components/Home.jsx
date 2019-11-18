@@ -8,7 +8,7 @@ export default () => (
       <div className="container secondary-color">
         <h1 className="display-4">Ascendia</h1>
         <p className="lead">
-          A curated list of recipes for the best homemade meal and delicacies.
+          A curated list of videos for the best learning experience.
         </p>
         <hr className="my-4" />
         <Button 

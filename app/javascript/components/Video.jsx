@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { connect } from "react-redux"
 import VideoPlayer from "./Player"
 import * as videoActions from "../packs/actions"
+import { CurrentTimeDisplay } from "video-react"
 
 class Video extends React.Component {
   constructor(props) {
@@ -45,29 +46,30 @@ class Video extends React.Component {
       .catch(() => this.props.history.push("/videos"))
   }
 
+  currentSubtitle() {
+    let content = null
+    if (!this.props.player) {
+      return <h4>Loading Player State...</h4>
+    }
+
+    if (!this.props.subtitles) {
+      return <h4>No matching subtitle</h4>
+    } else {
+      this.props.subtitles.forEach((sentence) => {
+        if (sentence.start_time < this.props.player.currentTime && sentence.end_time > this.props.player.currentTime) {
+          content = sentence.content
+        }
+      })
+      return <h4>Current subtitle: {content}</h4>
+    }
+  }
+
   render() {
+
     const { video: video } = this.state
     let videoUrl = video.src
-    let videoImg = video.img
-    let subtitles = []
     let definitions = this.props.definitions
-    console.log(this.props.subtitles)
-    
-    if (this.props.subtitles) {
-      this.props.subtitles.forEach((sentence) => {
-        subtitles.push(
-          <div key={sentence.id} className="card mb-4">
-            <div className="card-body">
-              <p>Content: {sentence.content}</p>
-              <p>Start Time: {sentence.start_time}</p>
-              <p>End Time: {sentence.end_time}</p>
-              <h5>Definitions</h5>
-              {/* <p key={definitions[sentence.id].content}>{definitions[sentence.id].content}</p> */}
-            </div>
-          </div>
-        )
-      })
-    }
+    let currentSubtitle = this.currentSubtitle()
 
     return (
       <div className="">
@@ -76,10 +78,7 @@ class Video extends React.Component {
         </div>
         <div className="container py-5">
           <div className="row">
-            <div className="col-sm-3 col-lg-3">
-              <h4 className="mb-2">Subtitles from the DB</h4>
-              {subtitles}
-            </div>
+            {currentSubtitle}
           </div>
           <Link to="/videos" className="btn btn-link">
             Back to videos
@@ -93,7 +92,8 @@ class Video extends React.Component {
 const mapStateToProps = state => {
   return {
     definitions: state.definitions,
-    subtitles: state.subtitles
+    subtitles: state.subtitles,
+    player: state.player
   }
 }
 
