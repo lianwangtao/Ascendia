@@ -47,20 +47,23 @@ class Video extends React.Component {
   }
 
   currentSubtitle() {
-    let content = null
-    if (!this.props.player) {
+    let text = null
+    let playerState = this.props.player
+    if (!playerState) {
       return <h4>Loading Player State...</h4>
     }
 
     if (!this.props.subtitles) {
       return <h4>No matching subtitle</h4>
     } else {
+      if (playerState.currentTime == 0) return text
+
       this.props.subtitles.forEach((sentence) => {
-        if (sentence.start_time < this.props.player.currentTime && sentence.end_time > this.props.player.currentTime) {
-          content = sentence.content
+        if (sentence.start_time < playerState.currentTime && sentence.end_time > playerState.currentTime) {
+          text = sentence.content
         }
       })
-      return <h4>Current subtitle: {content}</h4>
+      return <p className="subtitle">{text}</p>
     }
   }
 
@@ -72,17 +75,17 @@ class Video extends React.Component {
     let currentSubtitle = this.currentSubtitle()
 
     return (
-      <div className="">
-        <div className="row d-flex align-items-center justify-content-center video-player-wrapper">
-          <VideoPlayer video_source={videoUrl} />
-        </div>
-        <div className="container py-5">
-          <div className="row">
-            {currentSubtitle}
-          </div>
+      <div className="container">
+        <div className="row d-flex align-items-left">
           <Link to="/videos" className="btn btn-link">
             Back to videos
           </Link>
+        </div>
+        <div className="row d-flex justify-content-center video-player-wrapper">
+          <VideoPlayer video_source={videoUrl} />
+        </div>
+        <div className="row align-items-center justify-content-center">
+          {currentSubtitle}
         </div>
       </div>
     )
