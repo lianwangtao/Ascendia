@@ -18,9 +18,11 @@ module Translation
 
     def self.translate(word)
       signed = get_signed(word)
-      Request.get(
-        "?q=#{word}&from=en&to=zh&appid=#{@app_id}&salt=#{@salt}&sign=#{signed}"
-      )
+      word = word.force_encoding('UTF-8')
+      url = "?q=#{word}&from=zh&to=en&appid=#{@app_id}&salt=#{@salt}&sign=#{signed}"
+      uri = URI.parse(URI.escape(url))
+      response = Request.get(uri)
+      response['trans_result'][0]['dst']
     end
   end
 end

@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+load('./lib/translation/translation.rb')
+
 class Api::V1::DefinitionsController < ApplicationController
   def show
     if definitions
@@ -10,6 +14,7 @@ class Api::V1::DefinitionsController < ApplicationController
   private
 
   def definitions
-    @definitions ||= Definition.where(subtitle_id: params[:subtitle_id])
+    translator = Translation::Translator
+    @definitions ||= translator.translate(params[:word])
   end
 end
