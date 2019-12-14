@@ -1,15 +1,18 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import { connect } from "react-redux"
+import hanzi from "hanzi"
 import VideoPlayer from "./Player"
 import * as videoActions from "../packs/actions"
-import { CurrentTimeDisplay } from "video-react"
 
 class Video extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { 
-      video: { src: "" , img: "" }, 
+    this.state = {
+      video: { src: "", img: "" },
+      selection: "",
+      definition: "",
+      hanzi,
     }
 
     this.addHtmlEntities = this.addHtmlEntities.bind(this)
@@ -30,7 +33,7 @@ class Video extends React.Component {
     } = this.props
     this.fetchVideo(id)
     this.props.fetchSubtitles(id)
-    this.props.fetchDefinitions(id)
+    this.state.hanzi.start()
   }
 
   fetchVideo(id) {
@@ -67,12 +70,29 @@ class Video extends React.Component {
     }
   }
 
-  render() {
+  currentDefinition() {
+    if (this.state.definition) {
+      return <h3>Definition: {this.state.definition}</h3>
+    }
+    return <h3></h3>
+  }
 
+  fetchDefinition = () => {
+    const selected = window.getSelection() ? window.getSelection().toString() : ""
+    console.log('Selected: ', selected)
+    this.setState({ selection: selected })
+    const result = hanzi.definitionLookup(selected, 's')
+    console.log('result: ', result)
+
+    if (result) this.setState({ definition: result[0]["definition"] })
+    else this.setState({ definition: null })
+  }
+
+  render() {
     const { video: video } = this.state
     let videoUrl = video.src
-    let definitions = this.props.definitions
     let currentSubtitle = this.currentSubtitle()
+    let currentDefinition = this.currentDefinition()
 
     return (
       <div className="container">
@@ -84,17 +104,19 @@ class Video extends React.Component {
         <div className="row d-flex justify-content-center video-player-wrapper">
           <VideoPlayer video_source={videoUrl} />
         </div>
-        <div className="row align-items-center justify-content-center">
+        <div className="row align-items-center justify-content-center" onMouseUp={this.fetchDefinition}>
           {currentSubtitle}
         </div>
-      </div>
+        <div className="row align-items-center justify-content-center">
+          {currentDefinition}
+        </div>
+      </div >
     )
   }
 }
 
 const mapStateToProps = state => {
   return {
-    definitions: state.definitions,
     subtitles: state.subtitles,
     player: state.player
   }
