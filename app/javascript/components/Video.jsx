@@ -49,15 +49,15 @@ class Video extends React.Component {
       .catch(() => this.props.history.push("/videos"))
   }
 
-  currentSubtitle() {
+  getCurrentSubtitleText() {
     let text = null
     let playerState = this.props.player
     if (!playerState) {
-      return <h4>Loading Player State...</h4>
+      return text
     }
 
     if (!this.props.subtitles) {
-      return <h4>No matching subtitle</h4>
+      return text
     } else {
       if (playerState.currentTime == 0) return text
 
@@ -66,23 +66,46 @@ class Video extends React.Component {
           text = sentence.content
         }
       })
-      return <p className="subtitle">{text}</p>
+      return text
     }
   }
 
-  currentDefinition() {
-    if (this.state.definition) {
-      return <h3>Definition: {this.state.definition}</h3>
+  segmentSubtitle(sentence) {
+    let segmented = []
+    if (sentence) {
+      segmented = hanzi.segment(sentence)
     }
-    return <h3></h3>
+    return segmented
+  }
+
+  currentDefinition() {
+    let definition = ""
+
+    if (this.state.definition) {
+      definition = this.state.definition
+    }
+    return <h3>{definition}</h3>
+  }
+
+  currentSubtitle(subtitleText, segmentedSubtitles) {
+    if (segmentedSubtitles.length == 0) {
+      return <h3>{subtitleText}</h3>
+    }
+
+    const highlightedWords = []
+    segmentedSubtitles.forEach((word) => {
+      highlightedWords.push((
+        <h3 className="word" key={word}>{word}</h3>
+      ))
+    })
+
+    return highlightedWords
   }
 
   fetchDefinition = () => {
     const selected = window.getSelection() ? window.getSelection().toString() : ""
-    console.log('Selected: ', selected)
     this.setState({ selection: selected })
     const result = hanzi.definitionLookup(selected, 's')
-    console.log('result: ', result)
 
     if (result) this.setState({ definition: result[0]["definition"] })
     else this.setState({ definition: null })
@@ -90,9 +113,11 @@ class Video extends React.Component {
 
   render() {
     const { video: video } = this.state
-    let videoUrl = video.src
-    let currentSubtitle = this.currentSubtitle()
-    let currentDefinition = this.currentDefinition()
+    const videoUrl = video.src
+    const subtitleText = this.getCurrentSubtitleText()
+    const segmentedSubtitles = this.segmentSubtitle(subtitleText)
+    const currentSubtitle = this.currentSubtitle(subtitleText, segmentedSubtitles)
+    const currentDefinition = this.currentDefinition()
 
     return (
       <div className="container">
