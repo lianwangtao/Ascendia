@@ -84,7 +84,7 @@ class Video extends React.Component {
     if (this.state.definition) {
       definition = this.state.definition
     }
-    return <h3>{definition}</h3>
+    return <p className="definition">{definition}</p>
   }
 
   currentSubtitle(subtitleText, segmentedSubtitles) {
@@ -93,19 +93,19 @@ class Video extends React.Component {
     }
 
     const highlightedWords = []
+    let keyIndex = 0
     segmentedSubtitles.forEach((word) => {
       highlightedWords.push((
-        <h3 className="word" key={word}>{word}</h3>
+        <h3 className="word" key={keyIndex} onMouseEnter={() => this.fetchDefinition(word)}>{word}</h3>
       ))
+      keyIndex++
     })
 
     return highlightedWords
   }
 
-  fetchDefinition = () => {
-    const selected = window.getSelection() ? window.getSelection().toString() : ""
-    this.setState({ selection: selected })
-    const result = hanzi.definitionLookup(selected, 's')
+  fetchDefinition(word) {
+    const result = hanzi.definitionLookup(word, 's')
 
     if (result) this.setState({ definition: result[0]["definition"] })
     else this.setState({ definition: null })
@@ -129,7 +129,7 @@ class Video extends React.Component {
         <div className="row d-flex justify-content-center video-player-wrapper">
           <VideoPlayer video_source={videoUrl} />
         </div>
-        <div className="row align-items-center justify-content-center" onMouseUp={this.fetchDefinition}>
+        <div className="row align-items-center justify-content-center">
           {currentSubtitle}
         </div>
         <div className="row align-items-center justify-content-center">
