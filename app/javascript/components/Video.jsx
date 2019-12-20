@@ -1,15 +1,18 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import { connect } from "react-redux"
+import hanzi from "hanzi"
 import VideoPlayer from "./Player"
 import * as videoActions from "../packs/actions"
-import { CurrentTimeDisplay } from "video-react"
 
 class Video extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { 
-      video: { src: "" , img: "" }, 
+    this.state = {
+      video: { src: "", img: "" },
+      selection: "",
+      definition: "",
+      hanzi,
     }
 
     this.addHtmlEntities = this.addHtmlEntities.bind(this)
@@ -30,7 +33,7 @@ class Video extends React.Component {
     } = this.props
     this.fetchVideo(id)
     this.props.fetchSubtitles(id)
-    this.props.fetchDefinitions(id)
+    this.state.hanzi.start()
   }
 
   fetchVideo(id) {
@@ -46,52 +49,99 @@ class Video extends React.Component {
       .catch(() => this.props.history.push("/videos"))
   }
 
-  currentSubtitle() {
-    let content = null
-    if (!this.props.player) {
-      return <h4>Loading Player State...</h4>
+  getCurrentSubtitleText() {
+    let text = null
+    let playerState = this.props.player
+    if (!playerState) {
+      return text
     }
 
     if (!this.props.subtitles) {
-      return <h4>No matching subtitle</h4>
+      return text
     } else {
+      if (playerState.currentTime == 0) return text
+
       this.props.subtitles.forEach((sentence) => {
-        if (sentence.start_time < this.props.player.currentTime && sentence.end_time > this.props.player.currentTime) {
-          content = sentence.content
+        if (sentence.start_time < playerState.currentTime && sentence.end_time > playerState.currentTime) {
+          text = sentence.content
         }
       })
-      return <h4>Current subtitle: {content}</h4>
+      return text
     }
   }
 
-  render() {
+  segmentSubtitle(sentence) {
+    let segmented = []
+    if (sentence) {
+      segmented = hanzi.segment(sentence)
+    }
+    return segmented
+  }
 
+  currentDefinition() {
+    let definition = ""
+
+    if (this.state.definition) {
+      definition = this.state.definition
+    }
+    return <p className="definition">{definition}</p>
+  }
+
+  currentSubtitle(subtitleText, segmentedSubtitles) {
+    if (segmentedSubtitles.length == 0) {
+      return <h3>{subtitleText}</h3>
+    }
+
+    const highlightedWords = []
+    let keyIndex = 0
+    segmentedSubtitles.forEach((word) => {
+      highlightedWords.push((
+        <h3 className="word" key={keyIndex} onMouseEnter={() => this.fetchDefinition(word)}>{word}</h3>
+      ))
+      keyIndex++
+    })
+
+    return highlightedWords
+  }
+
+  fetchDefinition(word) {
+    const result = hanzi.definitionLookup(word, 's')
+
+    if (result) this.setState({ definition: result[0]["definition"] })
+    else this.setState({ definition: null })
+  }
+
+  render() {
     const { video: video } = this.state
-    let videoUrl = video.src
-    let definitions = this.props.definitions
-    let currentSubtitle = this.currentSubtitle()
+    const videoUrl = video.src
+    const subtitleText = this.getCurrentSubtitleText()
+    const segmentedSubtitles = this.segmentSubtitle(subtitleText)
+    const currentSubtitle = this.currentSubtitle(subtitleText, segmentedSubtitles)
+    const currentDefinition = this.currentDefinition()
 
     return (
-      <div className="">
-        <div className="row d-flex align-items-center justify-content-center video-player-wrapper">
-          <VideoPlayer video_source={videoUrl} />
-        </div>
-        <div className="container py-5">
-          <div className="row">
-            {currentSubtitle}
-          </div>
+      <div className="container">
+        <div className="row d-flex align-items-left">
           <Link to="/videos" className="btn btn-link">
             Back to videos
           </Link>
         </div>
-      </div>
+        <div className="row d-flex justify-content-center video-player-wrapper">
+          <VideoPlayer video_source={videoUrl} />
+        </div>
+        <div className="row align-items-center justify-content-center">
+          {currentSubtitle}
+        </div>
+        <div className="row align-items-center justify-content-center">
+          {currentDefinition}
+        </div>
+      </div >
     )
   }
 }
 
 const mapStateToProps = state => {
   return {
-    definitions: state.definitions,
     subtitles: state.subtitles,
     player: state.player
   }

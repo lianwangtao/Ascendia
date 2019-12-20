@@ -1,13 +1,11 @@
 import axios from "axios"
 import { ADD_DEFINITION, ADD_SUBTITLE, UPDATE_PLAYER_STATE } from "./actionTypes"
 
-export function fetchDefinitions(id) {
+export function fetchDefinitions(word) {
   const url = '/api/v1/definitions'
   return (dispatch, _) => {
     axios.get(url, {
-      params: {
-        subtitle_id: id
-      },
+      params: { word },
     })
       .then(response => {
         dispatch({
@@ -20,7 +18,6 @@ export function fetchDefinitions(id) {
 }
 
 export function fetchSubtitles(id) {
-  console.log("Hit fetch subtitles")
   const url = `/api/v1/subtitles?video_id=${id}`
   return (dispatch, _) => {
     axios.get(url, {})

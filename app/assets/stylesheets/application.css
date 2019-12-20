@@ -60,9 +60,25 @@
 }
 
 .video-player-wrapper {
-  padding: 50px;
+  margin: 50px;
 }
 
 .player-control-bar {
   font-family: 'Roboto';
+}
+
+.subtitle {
+  font-family: 'Roboto';
+  font-size: 2.5em;
+}
+
+.definition {
+  font-family: 'Roboto';
+  font-size: 1.5em;
+}
+
+.word {
+  background-color: #dcdbdb;
+  margin-left: 3px;
+  margin-right: 3px;
 }
