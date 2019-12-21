@@ -1,8 +1,9 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import { connect } from "react-redux"
-import hanzi from "hanzi"
 import VideoPlayer from "./Player"
+import Subtitle from "./Subtitle"
+import Definition from "./Definition"
 import * as videoActions from "../packs/actions"
 
 class Video extends React.Component {
@@ -11,8 +12,7 @@ class Video extends React.Component {
     this.state = {
       video: { src: "", img: "" },
       selection: "",
-      definition: "",
-      hanzi,
+      definition: ""
     }
 
     this.addHtmlEntities = this.addHtmlEntities.bind(this)
@@ -33,7 +33,6 @@ class Video extends React.Component {
     } = this.props
     this.fetchVideo(id)
     this.props.fetchSubtitles(id)
-    this.state.hanzi.start()
   }
 
   fetchVideo(id) {
@@ -70,70 +69,17 @@ class Video extends React.Component {
     }
   }
 
-  segmentSubtitle(sentence) {
-    let segmented = []
-    if (sentence) {
-      segmented = hanzi.segment(sentence)
-    }
-    return segmented
-  }
-
-  currentDefinition() {
-    let definition = ""
-
-    if (this.state.definition) {
-      definition = this.state.definition
-    }
-    return <p className="definition">{definition}</p>
-  }
-
-  currentSubtitle(subtitleText, segmentedSubtitles) {
-    if (segmentedSubtitles.length == 0) {
-      return <h3>{subtitleText}</h3>
-    }
-
-    const highlightedWords = []
-    let keyIndex = 0
-    segmentedSubtitles.forEach((word) => {
-      highlightedWords.push((
-        <h3 className="word" key={keyIndex} onMouseEnter={() => this.fetchDefinition(word)}>{word}</h3>
-      ))
-      keyIndex++
-    })
-
-    return highlightedWords
-  }
-
-  fetchDefinition(word) {
-    const result = hanzi.definitionLookup(word, 's')
-
-    if (result) this.setState({ definition: result[0]["definition"] })
-    else this.setState({ definition: null })
-  }
-
   render() {
     const { video: video } = this.state
     const videoUrl = video.src
     const subtitleText = this.getCurrentSubtitleText()
-    const segmentedSubtitles = this.segmentSubtitle(subtitleText)
-    const currentSubtitle = this.currentSubtitle(subtitleText, segmentedSubtitles)
-    const currentDefinition = this.currentDefinition()
 
     return (
-      <div className="container">
-        <div className="row d-flex align-items-left">
-          <Link to="/videos" className="btn btn-link">
-            Back to videos
-          </Link>
-        </div>
-        <div className="row d-flex justify-content-center video-player-wrapper">
-          <VideoPlayer video_source={videoUrl} />
-        </div>
-        <div className="row align-items-center justify-content-center">
-          {currentSubtitle}
-        </div>
-        <div className="row align-items-center justify-content-center">
-          {currentDefinition}
+      <div className="video">
+        <VideoPlayer className="video-player" video_source={videoUrl} />
+        <div className="helper justify-content-center">
+          <Subtitle text={subtitleText} />
+          <Definition />
         </div>
       </div >
     )

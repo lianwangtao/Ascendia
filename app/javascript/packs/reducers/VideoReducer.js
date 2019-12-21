@@ -1,11 +1,11 @@
 import { ADD_DEFINITION, ADD_SUBTITLE, UPDATE_PLAYER_STATE } from "../actionTypes"
 import initialState from "./InitialState"
 
-export default function(state = initialState(), action) {
+export default function (state = initialState(), action) {
   switch (action.type) {
 
     case ADD_DEFINITION: {
-      return Object.assign({}, state, { definitions: action.data })
+      return Object.assign({}, state, { definition: action.data })
     }
 
     case ADD_SUBTITLE: {
@@ -14,7 +14,7 @@ export default function(state = initialState(), action) {
 
     case UPDATE_PLAYER_STATE: {
       return Object.assign({}, state, { player: action.data })
-    }    
+    }
 
     default:
       return state

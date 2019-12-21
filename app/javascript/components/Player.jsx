@@ -1,6 +1,6 @@
 import React from "react"
 import { connect } from "react-redux"
-import { Player, ControlBar, BigPlayButton} from 'video-react'
+import { Player, ControlBar, BigPlayButton } from 'video-react'
 import * as videoActions from "../packs/actions"
 
 class VideoPlayer extends React.Component {
@@ -26,6 +26,7 @@ class VideoPlayer extends React.Component {
     return (
       <Player
         fluid
+        muted
         src={this.props.video_source}
         ref={player => {
           this.player = player;
