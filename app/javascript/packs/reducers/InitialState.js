@@ -1,6 +1,8 @@
 export default function () {
     return {
-        video: {
-        }
+        home: {
+            loading: true
+        },
+        video: {}
     }
 }

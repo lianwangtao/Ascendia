@@ -1,4 +1,4 @@
-import { ADD_DEFINITION, ADD_SUBTITLE, UPDATE_PLAYER_STATE } from "../actionTypes"
+import { ADD_DEFINITION, ADD_SUBTITLE, UPDATE_PLAYER_STATE, UPDATE_HOME_LOADING } from "../actionTypes"
 import initialState from "./InitialState"
 
 export default function (state = initialState(), action) {
@@ -14,6 +14,10 @@ export default function (state = initialState(), action) {
 
     case UPDATE_PLAYER_STATE: {
       return Object.assign({}, state, { player: action.data })
+    }
+
+    case UPDATE_HOME_LOADING: {
+      return Object.assign({}, state, { loading: action.data })
     }
 
     default:

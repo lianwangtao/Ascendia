@@ -1,67 +1,60 @@
 import React from "react"
 import hanzi from "hanzi"
 import { connect } from "react-redux"
-import * as videoActions from "../packs/actions"
+import * as actions from "../packs/actions"
 
 class Subtitle extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {}
+  constructor(props) {
+    super(props)
+    this.state = {}
+  }
+
+  componentDidMount() {
+    hanzi.start()
+  }
+
+  buildSubtitle(subtitleText, segmentedSubtitles) {
+    if (segmentedSubtitles && segmentedSubtitles.length == 0) {
+      return <h3>{subtitleText}</h3>
     }
 
-    componentDidMount() {
-        hanzi.start()
-    }
+    const highlightedWords = []
+    let keyIndex = 0
+    segmentedSubtitles.forEach((word) => {
+      highlightedWords.push((
+        <p
+          className="word"
+          key={keyIndex}
+          onMouseEnter={() => this.props.fetchDefinition(word)}>
+          {word}
+        </p>
+      ))
+      keyIndex++
+    })
 
-    segmentSubtitle(sentence) {
-        let segmented = []
-        if (sentence) {
-            segmented = hanzi.segment(sentence)
-        }
-        return segmented
-    }
+    return highlightedWords
+  }
 
-    buildSubtitle(subtitleText, segmentedSubtitles) {
-        if (segmentedSubtitles && segmentedSubtitles.length == 0) {
-            return <h3>{subtitleText}</h3>
-        }
-
-        const highlightedWords = []
-        let keyIndex = 0
-        segmentedSubtitles.forEach((word) => {
-            highlightedWords.push((
-                <p
-                    className="word"
-                    key={keyIndex}
-                    onMouseEnter={() => this.props.fetchDefinition(word)}>
-                    {word}
-                </p>
-            ))
-            keyIndex++
-        })
-
-        return highlightedWords
-    }
-
-    render() {
-        const segmentedSubtitles = this.segmentSubtitle(this.props.text)
-        const subtitle = this.buildSubtitle(this.props.text, segmentedSubtitles)
-        return (
-            <div className="subtitle d-flex justify-content-center">
-                {subtitle}
-            </div>
-        )
-    }
+  render() {
+    const segmentedSubtitles = this.props.translator.segmentSubtitle(this.props.text)
+    const subtitle = this.buildSubtitle(this.props.text, segmentedSubtitles)
+    return (
+      <div className="subtitle d-flex justify-content-center">
+        {subtitle}
+      </div>
+    )
+  }
 }
 
 const mapStateToProps = state => {
-    return {
-        definition: state.definition,
-    }
+  return {
+    definition: state.definition,
+    translator: state.home.translator
+  }
 }
 
 export default connect(
-    mapStateToProps,
-    videoActions
+  mapStateToProps,
+  actions
 )(Subtitle)
 
