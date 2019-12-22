@@ -31,6 +31,10 @@ class Video extends React.Component {
     } = this.props
     this.fetchVideo(id)
     this.props.fetchSubtitles(id)
+    if (!this.props.translator.dictionary) {
+      this.props.translator.loadDictionary()
+      this.props.updateTranslator(this.props.translator)
+    }
   }
 
   fetchVideo(id) {
@@ -79,6 +83,7 @@ const mapStateToProps = state => {
     subtitles: state.video.subtitles,
     player: state.video.player,
     currentSubtitle: state.video.currentSubtitle,
+    translator: state.home.translator
   }
 }
 
