@@ -10,9 +10,7 @@ class Video extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      video: { src: "", img: "" },
-      selection: "",
-      definition: ""
+      video: { src: "", img: "" }
     }
 
     this.addHtmlEntities = this.addHtmlEntities.bind(this)
@@ -49,36 +47,26 @@ class Video extends React.Component {
   }
 
   getCurrentSubtitleText() {
-    let text = null
     let playerState = this.props.player
-    if (!playerState) {
-      return text
-    }
-
-    if (!this.props.subtitles) {
-      return text
-    } else {
-      if (playerState.currentTime == 0) return text
-
+    if (playerState && this.props.subtitles) {
       this.props.subtitles.forEach((sentence) => {
         if (sentence.start_time < playerState.currentTime && sentence.end_time > playerState.currentTime) {
-          text = sentence.content
+          this.props.updateCurrentSubtitle(sentence["content"])
         }
       })
-      return text
     }
   }
 
   render() {
     const { video: video } = this.state
     const videoUrl = video.src
-    const subtitleText = this.getCurrentSubtitleText()
+    this.getCurrentSubtitleText()
 
     return (
       <div className="video">
         <VideoPlayer className="video-player" video_source={videoUrl} />
         <div className="helper justify-content-center">
-          <Subtitle text={subtitleText} />
+          <Subtitle />
           <Definition />
         </div>
       </div >
@@ -88,8 +76,9 @@ class Video extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    subtitles: state.subtitles,
-    player: state.player
+    subtitles: state.video.subtitles,
+    player: state.video.player,
+    currentSubtitle: state.video.currentSubtitle,
   }
 }
 

@@ -8,14 +8,12 @@ import * as actions from "../packs/actions"
 class Home extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      translator: new Translator()
-    }
+    this.state = {}
   }
 
   componentDidMount() {
-    this.state.translator.loadDictionary()
-    this.props.updateTranslator(this.state.translator)
+    this.props.translator.loadDictionary()
+    this.props.updateTranslator(this.props.translator)
     setTimeout(() => {
       this.props.updateHomeLoading(false)
     }, 1500)

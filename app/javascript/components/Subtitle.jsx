@@ -9,12 +9,8 @@ class Subtitle extends React.Component {
     this.state = {}
   }
 
-  componentDidMount() {
-    hanzi.start()
-  }
-
   buildSubtitle(subtitleText, segmentedSubtitles) {
-    if (segmentedSubtitles && segmentedSubtitles.length == 0) {
+    if (!segmentedSubtitles && segmentedSubtitles.length == 0) {
       return <h3>{subtitleText}</h3>
     }
 
@@ -25,7 +21,7 @@ class Subtitle extends React.Component {
         <p
           className="word"
           key={keyIndex}
-          onMouseEnter={() => this.props.fetchDefinition(word)}>
+          onMouseEnter={() => this.props.fetchDefinition(word, this.props.translator)}>
           {word}
         </p>
       ))
@@ -36,8 +32,8 @@ class Subtitle extends React.Component {
   }
 
   render() {
-    const segmentedSubtitles = this.props.translator.segmentSubtitle(this.props.text)
-    const subtitle = this.buildSubtitle(this.props.text, segmentedSubtitles)
+    const segmentedSubtitles = this.props.translator.segmentSubtitle(this.props.currentSubtitle)
+    const subtitle = this.buildSubtitle(this.props.currentSubtitle, segmentedSubtitles)
     return (
       <div className="subtitle d-flex justify-content-center">
         {subtitle}
@@ -48,7 +44,7 @@ class Subtitle extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    definition: state.definition,
+    currentSubtitle: state.video.currentSubtitle,
     translator: state.home.translator
   }
 }

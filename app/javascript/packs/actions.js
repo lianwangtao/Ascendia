@@ -1,5 +1,5 @@
 import axios from "axios"
-import { ADD_DEFINITION, ADD_SUBTITLE, UPDATE_PLAYER_STATE } from "./actionTypes"
+import { ADD_DEFINITION, ADD_SUBTITLE, UPDATE_PLAYER_STATE, UPDATE_CURRENT_SUBTITLE } from "./actionTypes"
 import { UPDATE_HOME_LOADING, UPDATE_TRANSLATOR } from "./actionTypes"
 
 // Video Actions
@@ -26,6 +26,15 @@ export function fetchSubtitles(id) {
         })
       })
       .catch((error) => console.log("Error while fetching subtitles: ", error))
+  }
+}
+
+export function updateCurrentSubtitle(currentSubtitle) {
+  return (dispatch, _) => {
+    dispatch({
+      type: UPDATE_CURRENT_SUBTITLE,
+      data: currentSubtitle,
+    })
   }
 }
 

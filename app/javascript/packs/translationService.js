@@ -6,11 +6,13 @@ export default class Translator {
   }
 
   loadDictionary() {
-    try {
-      hanzi.start()
-      this.dictionary = hanzi
-    } catch (error) {
-      throw new Error("Failed to load the dictionary: ", error)
+    if (!this.dictionary) {
+      try {
+        hanzi.start()
+        this.dictionary = hanzi
+      } catch (error) {
+        throw new Error("Failed to load the dictionary: ", error)
+      }
     }
   }
 

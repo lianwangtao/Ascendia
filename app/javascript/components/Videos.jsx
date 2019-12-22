@@ -53,16 +53,6 @@ class Videos extends React.Component {
 
     return (
       <div>
-        <section className="jumbotron jumbotron-fluid text-center">
-          <div className="container py-5">
-            <h1 className="display-4">videos for every occasion</h1>
-            <p className="lead text-muted">
-              We’ve pulled together our most popular videos, our latest
-              additions, and our editor’s picks, so there’s sure to be something
-              tempting for you to try.
-          </p>
-          </div>
-        </section>
         <div className="py-5">
           <main className="container">
             <div className="row">
