@@ -50,6 +50,7 @@ class Home extends React.Component {
 const mapStateToProps = state => {
   return {
     loading: state.home.loading,
+    translator: state.home.translator
   }
 }
 
