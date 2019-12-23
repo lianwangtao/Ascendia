@@ -1,11 +1,11 @@
 import axios from "axios"
-import { ADD_DEFINITION, ADD_SUBTITLE, UPDATE_PLAYER_STATE, UPDATE_CURRENT_SUBTITLE } from "./actionTypes"
+import { ADD_DEFINITION, ADD_SUBTITLE, UPDATE_PLAYER_CURRENT_TIME, UPDATE_CURRENT_SUBTITLE } from "./actionTypes"
 import { UPDATE_HOME_LOADING, UPDATE_TRANSLATOR } from "./actionTypes"
 
 // Video Actions
 export function fetchDefinition(word, translator) {
   const result = translator.lookUpWord(word)
-  const definition = result["definition"]
+  const definition = result ? result["definition"] : null
 
   return (dispatch, _) => {
     dispatch({
@@ -29,20 +29,20 @@ export function fetchSubtitles(id) {
   }
 }
 
-export function updateCurrentSubtitle(currentSubtitle) {
+export function updatecurrentSubtitles(currentSubtitles) {
   return (dispatch, _) => {
     dispatch({
       type: UPDATE_CURRENT_SUBTITLE,
-      data: currentSubtitle,
+      data: currentSubtitles,
     })
   }
 }
 
-export function updatePlayerState(player_state) {
+export function updatePlayerCurrentTime(currentTime) {
   return (dispatch, _) => {
     dispatch({
-      type: UPDATE_PLAYER_STATE,
-      data: player_state,
+      type: UPDATE_PLAYER_CURRENT_TIME,
+      data: currentTime,
     })
   }
 }

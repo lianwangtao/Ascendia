@@ -2,6 +2,7 @@ import React from "react"
 import hanzi from "hanzi"
 import { connect } from "react-redux"
 import * as actions from "../packs/actions"
+import { segment } from "hanzi/lib/module"
 
 class Subtitle extends React.Component {
   constructor(props) {
@@ -9,34 +10,42 @@ class Subtitle extends React.Component {
     this.state = {}
   }
 
-  buildSubtitle(subtitleText, segmentedSubtitles) {
-    if (!segmentedSubtitles && segmentedSubtitles.length == 0) {
-      return <h3>{subtitleText}</h3>
-    }
+  buildSubtitle() {
+    const allSubtitles = [] // All sentences in the current subtitle
 
-    const highlightedWords = []
-    let keyIndex = 0
-    segmentedSubtitles.forEach((word) => {
-      highlightedWords.push((
-        <p
-          className="word"
-          key={keyIndex}
-          onMouseEnter={() => this.props.fetchDefinition(word, this.props.translator)}>
-          {word}
-        </p>
-      ))
-      keyIndex++
+    if (!this.props.currentSubtitles) return allSubtitles
+
+    this.props.currentSubtitles.forEach((sentence) => {
+      const segmentedSentence = this.props.translator.segmentSubtitle(sentence["content"])
+      const segmentedSentenceView = []
+      segmentedSentence.map((word, index) => {
+        // To push each word into a sentence view
+        segmentedSentenceView.push(
+          <p
+            className="word"
+            key={index}
+            onMouseOver={() => this.props.fetchDefinition(word, this.props.translator)}
+          >
+            {word}
+          </p>
+        )
+      })
+      // Push each sentence into its own div
+      allSubtitles.push(
+        <div className="subtitle d-flex justify-content-center">
+          {segmentedSentenceView}
+        </div>
+      )
     })
 
-    return highlightedWords
+    return allSubtitles
   }
 
   render() {
-    const segmentedSubtitles = this.props.translator.segmentSubtitle(this.props.currentSubtitle)
-    const subtitle = this.buildSubtitle(this.props.currentSubtitle, segmentedSubtitles)
+    const allSubtitle = this.buildSubtitle()
     return (
-      <div className="subtitle d-flex justify-content-center">
-        {subtitle}
+      <div className="">
+        {allSubtitle}
       </div>
     )
   }
@@ -44,7 +53,7 @@ class Subtitle extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    currentSubtitle: state.video.currentSubtitle,
+    currentSubtitles: state.video.currentSubtitles,
     translator: state.home.translator
   }
 }

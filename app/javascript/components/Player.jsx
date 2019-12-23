@@ -15,17 +15,19 @@ class VideoPlayer extends React.Component {
 
   handleStateChange(state, prevState) {
     // copy player state to this component's state
-    this.setState({
-      player: state,
-      currentTime: state.currentTime
-    })
-    this.props.updatePlayerState(state)
+    // this.setState({
+    //   player: state,
+    //   currentTime: state.currentTime
+    // })
+    if (state.currentTime != prevState.currentTime) {
+      this.props.updatePlayerCurrentTime(state.currentTime)
+    }
   }
 
   render() {
     return (
       <Player
-        fluid
+        playsInline
         muted
         src={this.props.video_source}
         ref={player => {
@@ -33,7 +35,7 @@ class VideoPlayer extends React.Component {
         }}
       >
         <BigPlayButton position="center" />
-        <ControlBar autoHide={true} className="player-control-bar" />
+        <ControlBar className="player-control-bar" />
       </Player>
     )
   }
@@ -41,7 +43,7 @@ class VideoPlayer extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    player: state.player
+    currentTime: state.video.currentTime
   }
 }
 

@@ -13,13 +13,21 @@ let mainWindow;
 
 function createWindow() {
     // Create the browser window.
-    mainWindow = new BrowserWindow({ width: 1600, height: 900 });
+    mainWindow = new BrowserWindow({
+        width: 1600,
+        height: 900,
+        frame: false,
+        titleBarStyle: 'hiddenInset',
+        useContentSize: true
+    });
+
+    mainWindow.setAspectRatio(16 / 9)
 
     // and load the index.html of the app.
-    mainWindow.loadURL('http://localhost:3000');
+    mainWindow.loadURL('http://localhost:3000/video/1');
 
     // Open the DevTools.
-    // mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools();
 
     // Emitted when the window is closed.
     mainWindow.on('closed', function () {

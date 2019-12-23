@@ -7,7 +7,7 @@ export default function () {
       translator: new Translator()
     },
     video: {
-      currentSubtitle: ""
+      currentSubtitles: ""
     }
   }
 }
