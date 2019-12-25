@@ -1,22 +1,32 @@
 import React from "react"
-import { Link } from "react-router-dom"
 import { connect } from "react-redux"
-import hanzi from "hanzi"
+import { withStyles } from '@material-ui/core/styles'
+import { Link } from "react-router-dom"
+import Button from '@material-ui/core/Button'
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos'
 import VideoPlayer from "./Player"
+import Subtitle from "./Subtitle"
+import Definition from "./Definition"
 import * as videoActions from "../packs/actions"
+
+const styles = {
+  root: {
+    color: 'white',
+  },
+}
+
+const BackButton = withStyles(styles)(Button)
 
 class Video extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      video: { src: "", img: "" },
-      selection: "",
-      definition: "",
-      hanzi,
+      video: { src: "", img: "" }
     }
 
     this.addHtmlEntities = this.addHtmlEntities.bind(this)
     this.fetchVideo = this.fetchVideo.bind(this)
+    this.getcurrentSubtitlesText = this.getcurrentSubtitlesText.bind(this)
   }
 
   addHtmlEntities(str) {
@@ -33,7 +43,14 @@ class Video extends React.Component {
     } = this.props
     this.fetchVideo(id)
     this.props.fetchSubtitles(id)
-    this.state.hanzi.start()
+    if (!this.props.translator.dictionary) {
+      this.props.translator.loadDictionary()
+      this.props.updateTranslator(this.props.translator)
+    }
+  }
+
+  componentDidUpdate() {
+    this.getcurrentSubtitlesText()
   }
 
   fetchVideo(id) {
@@ -49,91 +66,40 @@ class Video extends React.Component {
       .catch(() => this.props.history.push("/videos"))
   }
 
-  getCurrentSubtitleText() {
-    let text = null
-    let playerState = this.props.player
-    if (!playerState) {
-      return text
-    }
-
-    if (!this.props.subtitles) {
-      return text
-    } else {
-      if (playerState.currentTime == 0) return text
-
+  getcurrentSubtitlesText() {
+    let currentTime = this.props.currentTime
+    if (currentTime && this.props.subtitles) {
+      const matchedSubtitles = []
       this.props.subtitles.forEach((sentence) => {
-        if (sentence.start_time < playerState.currentTime && sentence.end_time > playerState.currentTime) {
-          text = sentence.content
+        if (sentence.start_time < currentTime && sentence.end_time > currentTime && !this.props.currentSubtitles.includes(sentence)) {
+          matchedSubtitles.push(sentence)
+          this.props.updatecurrentSubtitles(matchedSubtitles)
         }
       })
-      return text
     }
-  }
-
-  segmentSubtitle(sentence) {
-    let segmented = []
-    if (sentence) {
-      segmented = hanzi.segment(sentence)
-    }
-    return segmented
-  }
-
-  currentDefinition() {
-    let definition = ""
-
-    if (this.state.definition) {
-      definition = this.state.definition
-    }
-    return <p className="definition">{definition}</p>
-  }
-
-  currentSubtitle(subtitleText, segmentedSubtitles) {
-    if (segmentedSubtitles.length == 0) {
-      return <h3>{subtitleText}</h3>
-    }
-
-    const highlightedWords = []
-    let keyIndex = 0
-    segmentedSubtitles.forEach((word) => {
-      highlightedWords.push((
-        <h3 className="word" key={keyIndex} onMouseEnter={() => this.fetchDefinition(word)}>{word}</h3>
-      ))
-      keyIndex++
-    })
-
-    return highlightedWords
-  }
-
-  fetchDefinition(word) {
-    const result = hanzi.definitionLookup(word, 's')
-
-    if (result) this.setState({ definition: result[0]["definition"] })
-    else this.setState({ definition: null })
   }
 
   render() {
     const { video: video } = this.state
     const videoUrl = video.src
-    const subtitleText = this.getCurrentSubtitleText()
-    const segmentedSubtitles = this.segmentSubtitle(subtitleText)
-    const currentSubtitle = this.currentSubtitle(subtitleText, segmentedSubtitles)
-    const currentDefinition = this.currentDefinition()
 
     return (
-      <div className="container">
-        <div className="row d-flex align-items-left">
-          <Link to="/videos" className="btn btn-link">
-            Back to videos
-          </Link>
+      <div className="video">
+        <div className="video-top-nav">
+          <BackButton
+            className="btn btn-dark"
+            disableFocusRipple
+            startIcon={<ArrowBackIosIcon className="back-button" />}
+            component={Link}
+            to={"/videos"}
+          >
+            Back
+          </BackButton>
         </div>
-        <div className="row d-flex justify-content-center video-player-wrapper">
-          <VideoPlayer video_source={videoUrl} />
-        </div>
-        <div className="row align-items-center justify-content-center">
-          {currentSubtitle}
-        </div>
-        <div className="row align-items-center justify-content-center">
-          {currentDefinition}
+        <VideoPlayer className="video-player" video_source={videoUrl} />
+        <div className="helper justify-content-center">
+          <Subtitle />
+          <Definition />
         </div>
       </div >
     )
@@ -142,8 +108,10 @@ class Video extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    subtitles: state.subtitles,
-    player: state.player
+    subtitles: state.video.subtitles,
+    currentTime: state.video.currentTime,
+    currentSubtitles: state.video.currentSubtitles,
+    translator: state.home.translator
   }
 }
 

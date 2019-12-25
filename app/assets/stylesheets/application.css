@@ -14,6 +14,12 @@
  *= require_self
  */
 
+ .body {
+   height: 100%;
+   width: 100%;
+   overflow: hidden;
+ }
+
 .bg_primary-color {
   background-color: #FFFFFF;
 }
@@ -41,30 +47,43 @@
   border: none;
 }
 
-.hero {
-  width: 100vw;
-  height: 50vh;
-}
-
-.hero img {
-  object-fit: cover;
-  object-position: top;
-  height: 100%;
+.video {
+  position: relative;
+  top: 0;
+  left: 0;
   width: 100%;
-}
-
-.overlay {
   height: 100%;
+  object-fit: contain;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.video-react {
+  font-size: 1em;
+}
+
+.video-player {
+  display: inline-block;
+}
+
+.video-top-nav {
+  position: absolute;
+  top: 30px;
+  left: 10px;
   width: 100%;
-  opacity: 0.4;
+  z-index: 3;
 }
 
-.video-player-wrapper {
-  margin: 50px;
-}
-
-.player-control-bar {
-  font-family: 'Roboto';
+.helper {
+  position: absolute;
+  bottom: 8%;
+  width: 80%;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .subtitle {
@@ -74,7 +93,14 @@
 
 .definition {
   font-family: 'Roboto';
+  font-size: 1em;
+  color: white;
+}
+
+.definition-text {
+  font-family: 'Roboto';
   font-size: 1.5em;
+  color: white;
 }
 
 .word {

@@ -1,19 +1,17 @@
 import axios from "axios"
-import { ADD_DEFINITION, ADD_SUBTITLE, UPDATE_PLAYER_STATE } from "./actionTypes"
+import { ADD_DEFINITION, ADD_SUBTITLE, UPDATE_PLAYER_CURRENT_TIME, UPDATE_CURRENT_SUBTITLE } from "./actionTypes"
+import { UPDATE_HOME_LOADING, UPDATE_TRANSLATOR } from "./actionTypes"
 
-export function fetchDefinitions(word) {
-  const url = '/api/v1/definitions'
+// Video Actions
+export function fetchDefinition(word, translator) {
+  const result = translator.lookUpWord(word)
+  const definition = result ? result["definition"] : null
+
   return (dispatch, _) => {
-    axios.get(url, {
-      params: { word },
+    dispatch({
+      type: ADD_DEFINITION,
+      data: definition,
     })
-      .then(response => {
-        dispatch({
-          type: ADD_DEFINITION,
-          data: response.data,
-        })
-      })
-      .catch((error) => console.log("Error while fetching definition: ", error))
   }
 }
 
@@ -31,11 +29,39 @@ export function fetchSubtitles(id) {
   }
 }
 
-export function updatePlayerState(player_state) {
+export function updatecurrentSubtitles(currentSubtitles) {
   return (dispatch, _) => {
     dispatch({
-      type: UPDATE_PLAYER_STATE,
-      data: player_state,
+      type: UPDATE_CURRENT_SUBTITLE,
+      data: currentSubtitles,
+    })
+  }
+}
+
+export function updatePlayerCurrentTime(currentTime) {
+  return (dispatch, _) => {
+    dispatch({
+      type: UPDATE_PLAYER_CURRENT_TIME,
+      data: currentTime,
+    })
+  }
+}
+
+// Home Actions
+export function updateHomeLoading(loadingState) {
+  return (dispatch, _) => {
+    dispatch({
+      type: UPDATE_HOME_LOADING,
+      data: loadingState,
+    })
+  }
+}
+
+export function updateTranslator(translator) {
+  return (dispatch, _) => {
+    dispatch({
+      type: UPDATE_TRANSLATOR,
+      data: translator,
     })
   }
 }

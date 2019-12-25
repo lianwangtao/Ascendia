@@ -1,25 +1,60 @@
 import React from "react"
-import Button from '@material-ui/core/Button'
-import { Link } from "react-router-dom"
+import CircularProgress from '@material-ui/core/CircularProgress'
+import { Redirect } from "react-router-dom"
+import { connect } from "react-redux"
+import Translator from "../packs/translationService"
+import * as actions from "../packs/actions"
 
-export default () => (
-  <div className="vw-100 vh-100 primary-color d-flex align-items-center justify-content-center">
-    <div className="jumbotron jumbotron-fluid bg-transparent">
-      <div className="container secondary-color">
-        <h1 className="display-4">Ascendia</h1>
-        <p className="lead">
-          A curated list of videos for the best learning experience.
-        </p>
-        <hr className="my-4" />
-        <Button 
-          variant="contained" 
-          color="primary"
-          component={Link}
-          to="/videos"
-        >
-          View Videos
-        </Button> 
+class Home extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {}
+  }
+
+  componentDidMount() {
+    this.props.translator.loadDictionary()
+    this.props.updateTranslator(this.props.translator)
+    setTimeout(() => {
+      this.props.updateHomeLoading(false)
+    }, 1500)
+  }
+
+  render() {
+    if (!this.props.loading) {
+      return <Redirect to='/videos' />
+    }
+    return (
+      <div className="vw-100 vh-100 primary-color d-flex align-items-center justify-content-center">
+        <div className="jumbotron jumbotron-fluid bg-transparent">
+          <div className="container secondary-color">
+            <div className="row d-flex flex-column align-items-center justify-content-center ">
+              <h1 className="display-4">Ascendia</h1>
+              <p className="lead">
+                A better way to learn languages.
+              </p>
+            </div>
+            <hr className="my-4" />
+            <div className="row d-flex justify-content-center">
+              <CircularProgress />
+              <h3 style={{ marginLeft: '10px' }}>
+                Loading...
+              </h3>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-)
+    )
+  }
+}
+
+const mapStateToProps = state => {
+  return {
+    loading: state.home.loading,
+    translator: state.home.translator
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  actions
+)(Home)

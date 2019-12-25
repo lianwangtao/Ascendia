@@ -1,24 +1,51 @@
-# README
+# Ascendia
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A video player for language learners. 
 
-Things you may want to cover:
+## Get started
 
-* Ruby version
+Here is a guide to how to get Asendia running for the first time:
 
-* System dependencies
+### 1. Clone the repo:
+```
+~: git clone https://github.com/lianwangtao/Ascendia.git
+```
 
-* Configuration
+### 2. Rails setup
 
-* Database creation
+On how to install Ruby on Rails, please refer to (this guide)[https://gorails.com/setup/osx/10.15-catalina]. 
 
-* Database initialization
 
-* How to run the test suite
+#### - Install Rails Dependencies
+```
+~: bundle install
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+#### - Create and Migrate Database
+```
+~: rake db:create
+~: rake db:migrate
+```
 
-* Deployment instructions
+### 3. React & Electron setup
 
-* ...
+#### - Install Node dependencies
+```
+~: yarn
+```
+
+### 4. Start Rails
+
+```
+~: rails s
+```
+
+### 5. Start Electron
+
+Open another Terminal tab:
+
+```
+~: yarn electron
+```
+
+

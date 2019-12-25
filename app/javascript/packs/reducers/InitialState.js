@@ -1,6 +1,13 @@
+import Translator from "../translationService";
+
 export default function () {
-    return {
-        video: {
-        }
+  return {
+    home: {
+      loading: true,
+      translator: new Translator()
+    },
+    video: {
+      currentSubtitles: ""
     }
+  }
 }
