@@ -13,7 +13,7 @@ Here is a guide to how to get Asendia running for the first time:
 
 ### 2. Rails setup
 
-On how to install Ruby on Rails, please refer to (this guide)[https://gorails.com/setup/osx/10.15-catalina]. 
+On how to install Ruby on Rails, please refer to [this guide](https://gorails.com/setup/osx/10.15-catalina).
 
 
 #### - Install Rails Dependencies
