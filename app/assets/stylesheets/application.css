@@ -54,6 +54,13 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.video-react {
+  font-size: 1em;
 }
 
 .video-player {
@@ -68,17 +75,15 @@
   z-index: 3;
 }
 
-.player-control-bar {
-  font-family: 'Roboto';
-}
-
 .helper {
   position: absolute;
-  bottom: 5%;
-  width: 100%;
+  bottom: 8%;
+  width: 80%;
   z-index: 1;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .subtitle {

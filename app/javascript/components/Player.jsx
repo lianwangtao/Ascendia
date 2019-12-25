@@ -1,42 +1,49 @@
 import React from "react"
 import { connect } from "react-redux"
-import { Player, ControlBar, BigPlayButton } from 'video-react'
+import ReactPlayer from 'react-player'
 import * as videoActions from "../packs/actions"
 
 class VideoPlayer extends React.Component {
   constructor(props, context) {
     super(props, context)
+    this.state = {
+      playing: true,
+      controls: true,
+      light: false,
+      volume: 0.8,
+      muted: false,
+      played: 0,
+      loaded: 0,
+      duration: 0,
+      playbackRate: 1.0,
+      loop: false
+    }
+    this.handleProgress = this.handleProgress.bind(this)
   }
 
-  componentDidMount() {
-    // subscribe state change
-    this.player.subscribeToStateChange(this.handleStateChange.bind(this))
-  }
-
-  handleStateChange(state, prevState) {
-    // copy player state to this component's state
-    // this.setState({
-    //   player: state,
-    //   currentTime: state.currentTime
-    // })
-    if (state.currentTime != prevState.currentTime) {
-      this.props.updatePlayerCurrentTime(state.currentTime)
+  handleProgress = state => {
+    // We only want to update time slider if we are not currently seeking
+    if (!this.state.seeking) {
+      this.setState(state)
+      if (this.state.playedSeconds != this.props.currentTime) {
+        this.props.updatePlayerCurrentTime(this.state.playedSeconds)
+      }
     }
   }
 
   render() {
+    const { controls, muted } = this.state
     return (
-      <Player
-        playsInline
-        muted
-        src={this.props.video_source}
-        ref={player => {
-          this.player = player;
-        }}
+      <ReactPlayer
+        url={this.props.video_source}
+        ref={this.ref}
+        width='100%'
+        height='100%'
+        muted={muted}
+        controls={controls}
+        onProgress={this.handleProgress}
       >
-        <BigPlayButton position="center" />
-        <ControlBar className="player-control-bar" />
-      </Player>
+      </ReactPlayer>
     )
   }
 }

@@ -1,6 +1,7 @@
 import React from "react"
 import { connect } from "react-redux"
 import { withStyles } from '@material-ui/core/styles'
+import { Link } from "react-router-dom"
 import Button from '@material-ui/core/Button'
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos'
 import VideoPlayer from "./Player"
@@ -89,6 +90,8 @@ class Video extends React.Component {
             className="btn btn-dark"
             disableFocusRipple
             startIcon={<ArrowBackIosIcon className="back-button" />}
+            component={Link}
+            to={"/videos"}
           >
             Back
           </BackButton>

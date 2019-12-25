@@ -18,13 +18,14 @@ function createWindow() {
         height: 900,
         frame: false,
         titleBarStyle: 'hiddenInset',
-        useContentSize: true
+        useContentSize: true,
+        movable: true
     });
 
     mainWindow.setAspectRatio(16 / 9)
 
     // and load the index.html of the app.
-    mainWindow.loadURL('http://localhost:3000/video/1');
+    mainWindow.loadURL('http://localhost:3000');
 
     // Open the DevTools.
     mainWindow.webContents.openDevTools();
